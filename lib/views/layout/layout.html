@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/combo/base.css">
+    <%- block('csst').toString() %>
+</head>
+
+<body>
+
+<%- body %>
+<!--js-->
+<script src="/js/combo/base.js"></script>
+<%- block('jst').toString() %>
+
+<% if(isProduction){ %>
+这里的内容只有生产环境可见
+<% } %>
+</body>
+</html>

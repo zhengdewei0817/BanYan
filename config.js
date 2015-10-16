@@ -8,6 +8,8 @@ export default {
             username: 'test',
             password: 'test',
             database: 'test'
+        locals: {
+            IMAGE_BASE_DIR_URL: '/static'
         }
     },
     dev: {
@@ -20,6 +22,8 @@ export default {
             username: 'test',
             password: 'test',
             database: 'test'
+        locals: {
+            IMAGE_BASE_DIR_URL: '/static'
         }
     }
 }

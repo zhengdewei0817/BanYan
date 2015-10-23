@@ -9,17 +9,18 @@ import serveStatic from 'serve-static';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import glob from 'glob';
-
-import utils from '../utils';
-import logger from '../logger';
-//import routers from './routers';
-import config from '../../config';
+import configAll from '../config/env/all';
 
 var app = express();
 let SERVER_ENV = app.get('env');
-let env_name = SERVER_ENV === 'production' ? 'production' : 'dev';
+let env_name = SERVER_ENV;
 global.env_name = env_name;
-global.server_config = config[env_name];
+global.ENV_CONFIG = utils.extend(configAll, require('../config/env/' + env_name));
+
+import utils from './libs/utils';
+import logger from './libs/logger';
+
+logger.init(ENV_CONFIG.logfilename);
 
 app.use(morgan('short'));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -27,7 +28,7 @@ app.use(bodyParser.json({limit: 100000000}));
 app.use(require('method-override')());
 
 // views
-app.set('views', path.join(__dirname, '../views'));
+app.set('views', path.join(__dirname, '../public/views/'));
 app.set('view engine', 'html');
 app.engine('html', ejs);
 app.enable('trust proxy');
@@ -38,7 +39,7 @@ if(env_name === 'production'){
 }
 
 // 模板中一些公共的变量
-utils.extend(app.locals, server_config.locals || {});
+utils.extend(app.locals, ENV_CONFIG.locals || {});
 // 当前环境
 app.locals.isProduction = (env_name === 'production');
 
@@ -52,7 +53,7 @@ if(env_name === 'production') {
 app.use(compression());
 app.use(cookieParser('vwdirect'));
 // session 存到mysql中
-let mysqlConfig = config[env_name].mysql;
+let mysqlConfig = ENV_CONFIG.mysql;
 app.use(session({
     secret: 'vwdirect',
     store: new SessionStore({

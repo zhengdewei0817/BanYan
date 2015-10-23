@@ -1,13 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
-import config from '../../../config';
-import logger from '../../logger';
+import logger from '../libs/logger';
 
 var sqlLog = logger.log('SQL');
 
-let env = process.env.NODE_ENV === 'production' ? 'production' : 'dev';
-let mysqlConfig = config[env].mysql;
+let mysqlConfig = ENV_CONFIG.mysql;
 let sequelize = new Sequelize(mysqlConfig.database, mysqlConfig.username, mysqlConfig.password, {
     host: mysqlConfig.host,
     port: mysqlConfig.port,

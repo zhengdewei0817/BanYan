@@ -1,7 +1,7 @@
 import {Router} from 'express';
-import {api as requestApi} from '../../requestApi';
+import {api as requestApi} from '../libs/requestApi';
 
-let api = server_config.api;
+let api = ENV_CONFIG.api;
 
 var indexRouter = Router();
 

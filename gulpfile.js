@@ -18,8 +18,8 @@ var autoprefixer = require('gulp-autoprefixer');
  * gulp config *
  * */
 var gulpConf = {
-    tpl_default: './lib/views/',
-    tpl_output: './lib/views/',
+    tpl_default: './libs/views/',
+    tpl_output: './libs/views/',
     path: './dest/',
     buildPath: './dest'
 };
@@ -53,7 +53,7 @@ gulpConf.tpl = {
 
 
 // copy
-var startPath = path.join(__dirname, 'lib/public/');
+var startPath = path.join(__dirname, 'libs/public/');
 gulp.task('copy', function () {
     return gulp.src([startPath + '**/**'])
         .pipe(gulp.dest(gulpConf.buildPath))

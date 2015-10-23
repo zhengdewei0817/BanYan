@@ -1,11 +1,11 @@
 import {Router} from 'express';
 import {checkLogin} from '../middleware/checkLogin';
-import ErrorModal from '../../errorModal';
-import {api as requestApi} from '../../requestApi';
-import utils from '../../utils';
+import ErrorModal from '../libs/errorModal';
+import {api as requestApi} from '../libs/requestApi';
+import utils from '../libs/utils';
 import models from '../models';
 
-let api = server_config.api;
+let api = ENV_CONFIG.api;
 let userRouter = Router();
 
 userRouter.use(checkLogin);

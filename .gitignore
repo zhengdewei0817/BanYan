@@ -1,0 +1,7 @@
+_drafts/
+_site/
+.DS_Store
+npm-debug.log
+*.swp
+node_modules/
+logs/

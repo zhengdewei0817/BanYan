@@ -1,9 +1,9 @@
 {
-  "name": "front",
+  "name": "vw",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node index.js"
+    "start": "node run.js"
   },
   "dependencies": {
     "babel": "^5.8.23",

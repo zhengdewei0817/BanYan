@@ -25,3 +25,11 @@ dev.js --- 服务配置
 gulpfile.js --- gulp编译配置文件
 package.json --- 服务依赖配置
 ```
+
+## 运行
+
+session 存入mysql，所以请先配置mysql
+
+```
+npm start
+```

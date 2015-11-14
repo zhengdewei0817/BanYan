@@ -20,8 +20,8 @@ var autoprefixer = require('gulp-autoprefixer');
 var gulpConf = {
     tpl_default: './libs/views/',
     tpl_output: './libs/views/',
-    path: './dest/',
-    buildPath: './dest'
+    path: './build/',
+    buildPath: './build'
 };
 
 gulpConf.less = {
@@ -130,7 +130,7 @@ gulp.task('cache_tpl', ['cache_static'], function(){
         .pipe(resourcecache({
             relativeUrls: gulpConf.path + '/**/'
         }))
-        .pipe(gulp.dest('./dest/app/views/'));
+        .pipe(gulp.dest('./build/app/views/'));
 });
 
 // 开发

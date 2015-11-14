@@ -3,5 +3,10 @@ _site/
 .DS_Store
 npm-debug.log
 *.swp
+agentx.json
+nohup.out
+agentx.json
 node_modules/
 logs/
+commands/
+.idea/

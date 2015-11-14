@@ -7,18 +7,8 @@ var indexRouter = Router();
 
 indexRouter.get('/', (req, res, next) => {
 
-    var request = requestApi(req);
-
-    request({
-        api: api.pc,
-        url: 'model/',
-        data: {
-            id: '1'
-        }
-    }).then(function(data){
-        res.render('index', {
-            title: '123'
-        });
+    res.render('index/index', {
+        title: 'liluo.me'
     });
 
 });

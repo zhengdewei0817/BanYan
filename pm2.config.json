@@ -1,0 +1,19 @@
+{
+  "apps" : [
+    {
+      "name"      : "vw",
+      "cwd"       : "project root",
+      "script"    : "run.js",
+      "exec_mode"    : "cluster",
+      "env" : {
+        "NODE_ENV": "production"
+      },
+      "log_date_format": "YYYY-MM-DD HH:mm Z",
+      "error_file": "/logs/error.log",
+      "out_file":   "/logs/out.log",
+      "pid_file":   "/logs/pid.log",
+      "max_memory_restart":   "400M",
+      "instances":   "max"
+    }
+  ]
+}

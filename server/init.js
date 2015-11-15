@@ -1,10 +1,7 @@
 var bodyParser = require('body-parser');
 var express = require('express');
 var path = require('path');
-var ejs = require('ejs');
-ejs._with = false;
-ejs.open = '{';
-var ejsmate = require('ejs-mate');
+var template = require('./libs/template');
 
 var session = require('express-session');
 var SessionStore = require('express-mysql-session');
@@ -36,7 +33,7 @@ app.use(bodyParser.urlencoded({extended: false, limit: '50mb'}));
 // views
 app.set('views', path.join(__dirname, '../public/views/'));
 app.set('view engine', 'html');
-app.engine('html', ejsmate);
+app.engine('html', template);
 
 // 生产环境启用缓存
 if(env_name === 'production'){
@@ -52,26 +49,29 @@ app.locals.isProduction = (env_name === 'production');
 app.use(cookieParser('vw'));
 // session 存到mysql中
 var mysqlConfig = ENV_CONFIG.mysql;
-//app.use(session({
-//    secret: 'vw',
-//    store: new SessionStore({
-//        host: mysqlConfig.host,
-//        port: mysqlConfig.port,
-//        user: mysqlConfig.username,
-//        password: mysqlConfig.password,
-//        database: mysqlConfig.database,
-//        schema: {
-//            tableName: 'node_session',
-//            columnNames: {
-//                session_id: 'session_id',
-//                expires: 'expires',
-//                data: 'data'
-//            }
-//        }
-//    }),
-//    resave: true,
-//    saveUninitialized: true
-//}));
+// 是否设置sessionStore
+if(ENV_CONFIG.sessionStore){
+    app.use(session({
+        secret: 'vw',
+        store: new SessionStore({
+            host: mysqlConfig.host,
+            port: mysqlConfig.port,
+            user: mysqlConfig.username,
+            password: mysqlConfig.password,
+            database: mysqlConfig.database,
+            schema: {
+                tableName: 'node_session',
+                columnNames: {
+                    session_id: 'session_id',
+                    expires: 'expires',
+                    data: 'data'
+                }
+            }
+        }),
+        resave: true,
+        saveUninitialized: true
+    }));
+}
 
 // 生产环境直接读取根目录
 if(env_name === 'production') {

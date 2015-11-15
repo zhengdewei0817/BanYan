@@ -42,7 +42,7 @@ exports.api = (req) => {
             request(param, (err, request, body) => {
                 var _data;
                 if (err) {
-                    _data = ErrorModal['ERR_SYSTEM_ERROR'];
+                    _data = ErrorModal['ERR_API_DATA_ERROR'];
                     logger.error(options.url, ip, err);
                     resolve(_data);
                     //reject(err);
@@ -53,7 +53,7 @@ exports.api = (req) => {
                     _data = typeof body == 'string' ? JSON.parse(body) : body;
                 } catch (e) {
                     logger.info(options.url, ip, JSON.stringify(body));
-                    _data = ErrorModal['ERR_SYSTEM_ERROR'];
+                    _data = ErrorModal['ERR_API_DATA_ERROR'];
                 }
 
                 logger.info(options.url, ip, JSON.stringify(_data));

@@ -6,14 +6,12 @@ var api = ENV_CONFIG.api;
 var indexRouter = Router();
 
 indexRouter.get('/', (req, res, next) => {
-
     var request = requestApi(req);
-
     request({
         api: api.pc,
         url: 'model/',
         data: {
-            id: '1'
+            id: req.query.id
         }
     }).then(function(data){
         res.render('index', {

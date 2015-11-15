@@ -1,7 +1,7 @@
 module.exports = {
     port: 3000,
     logfilename: './logs/test.log',
-
+    sessionStore: false,
     mysql: {
         host: 'localhost',
         port: 3306,

@@ -1,16 +1,25 @@
-import {Router} from 'express';
-import {api as requestApi} from '../libs/requestApi';
+var Router = require('express').Router;
+var requestApi = require('../libs/requestApi').api;
 
-let api = ENV_CONFIG.api;
+var api = ENV_CONFIG.api;
 
 var indexRouter = Router();
 
 indexRouter.get('/', (req, res, next) => {
 
-    res.render('index/index', {
-        title: 'liluo.me'
-    });
+    var request = requestApi(req);
 
+    request({
+        api: api.pc,
+        url: 'model/',
+        data: {
+            id: '1'
+        }
+    }).then(function(data){
+        res.render('index', {
+            title: 'liluo.me'
+        });
+    });
 });
 
-export default indexRouter;
+module.exports = indexRouter;

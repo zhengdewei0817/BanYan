@@ -1,4 +1,4 @@
-import log4js from "log4js";
+var log4js = require("log4js");
 
 exports.init = function(logfilename){
     log4js.configure({

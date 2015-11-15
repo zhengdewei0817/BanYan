@@ -1,5 +1,3 @@
 const NUMBER_REG = /^\d+$/;
 
-export default {
-    id: NUMBER_REG
-}
+exports.id = NUMBER_REG;

@@ -1,26 +1,26 @@
-import bodyParser from 'body-parser';
-import express from 'express';
-import path from 'path';
-import ejs from 'ejs';
+var bodyParser = require('body-parser');
+var express = require('express');
+var path = require('path');
+var ejs = require('ejs');
 ejs._with = false;
 ejs.open = '{';
-import ejsmate from 'ejs-mate';
+var ejsmate = require('ejs-mate');
 
-import session from 'express-session';
-import SessionStore from 'express-mysql-session';
-import serveStatic from 'serve-static';
-import compression from 'compression';
-import cookieParser from 'cookie-parser';
-import glob from 'glob';
+var session = require('express-session');
+var SessionStore = require('express-mysql-session');
+var serveStatic = require('serve-static');
+var compression = require('compression');
+var cookieParser = require('cookie-parser');
+var glob = require('glob');
 
-import configAll from '../config/env/all';
-import utils from './libs/utils';
-import logger from './libs/logger';
-import {parameter} from './middleware/index';
+var configAll = require('../config/env/all');
+var utils = require('./libs/utils');
+var logger = require('./libs/logger');
+var parameter = require('./middleware/index').parameter;
 
 var app = express();
-let SERVER_ENV = app.get('env');
-let env_name = SERVER_ENV;
+var SERVER_ENV = app.get('env');
+var env_name = SERVER_ENV;
 global.env_name = env_name;
 global.ENV_CONFIG = utils.extend(configAll, require('../config/env/' + env_name));
 
@@ -51,7 +51,7 @@ app.locals.isProduction = (env_name === 'production');
 // 设置cookie
 app.use(cookieParser('vw'));
 // session 存到mysql中
-let mysqlConfig = ENV_CONFIG.mysql;
+var mysqlConfig = ENV_CONFIG.mysql;
 //app.use(session({
 //    secret: 'vw',
 //    store: new SessionStore({
@@ -84,11 +84,11 @@ if(env_name === 'production') {
 app.use(parameter);
 
 // 路由生成
-let routersDir = path.join(__dirname, 'routers');
+var routersDir = path.join(__dirname, 'routers');
 glob.sync(routersDir + '/**/*.js').forEach((file, index) => {
-    let routerName = path.basename(file, '.js');
+    var routerName = path.basename(file, '.js');
     routerName = routerName.replace('index', '');
-    let router = require(file);
+    var router = require(file);
     app.use(`/${routerName}`, router);
 
 });
@@ -116,4 +116,4 @@ app.use((error, req, res) => {
 });
 
 
-export default app;
+module.exports = app;

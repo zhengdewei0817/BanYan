@@ -1,12 +1,12 @@
-import {Router} from 'express';
-import {checkLogin} from '../middleware/checkLogin';
-import ErrorModal from '../libs/errorModal';
-import {api as requestApi} from '../libs/requestApi';
-import utils from '../libs/utils';
-import models from '../models';
+var Router = require('express').Router;
+var checkLogin = require('../middleware/checkLogin').checkLogin;
+var ErrorModal = require('../libs/errorModal');
+var requestApi = require('../libs/requestApi').api;
+var utils = require('../libs/utils');
+var models = require('../models');
 
-let api = ENV_CONFIG.api;
-let userRouter = Router();
+var api = ENV_CONFIG.api;
+var userRouter = Router();
 
 userRouter.use(checkLogin);
 
@@ -26,4 +26,4 @@ userRouter.route('/')
         });
     });
 
-export default userRouter;
+module .exports = userRouter;

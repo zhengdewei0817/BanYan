@@ -1,5 +1,5 @@
-import app from './server/init';
-import logger from './server/libs/logger';
+var app = require('./server/init');
+var logger = require('./server/libs/logger');
 
 var server = app.listen(ENV_CONFIG.port, ENV_CONFIG.hostname || '127.0.0.1', 1024, function() {
     console.log('ENV ' + env_name);

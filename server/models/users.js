@@ -1,4 +1,4 @@
-export default (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
     var Users = sequelize.define("Users", {
         mobile: DataTypes.STRING,
         passwd: DataTypes.STRING,

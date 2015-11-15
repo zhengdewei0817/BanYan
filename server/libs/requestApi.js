@@ -1,17 +1,17 @@
-import request from 'request';
+var request = require('request');
 
-import Logger from './logger';
-import utils from './utils';
-import ErrorModal from './errorModal';
+var Logger = require('./logger');
+var utils = require('./utils');
+var ErrorModal = require('./errorModal');
 
-let logger = Logger.log('request');
+var logger = Logger.log('request');
 /**
  * json转query
  * @param object
  * @returns {string}
  */
 function json2str(object){
-    let array = [];
+    var array = [];
     for(var key in object){
         if ( !!object[key] || object[key] === 0 ) {
             array.push( key + '=' + object[key] );
@@ -20,9 +20,9 @@ function json2str(object){
     return array.join('&');
 }
 
-export function api(req){
+exports.api = (req) => {
     return (options) => {
-        let promise = new Promise((resolve, reject) => {
+        var promise = new Promise((resolve, reject) => {
             var ip = utils.getClientIp(req);
             var method = options.method || 'POST';
             var url = (options.api || '') + options.url;

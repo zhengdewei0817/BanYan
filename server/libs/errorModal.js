@@ -1,8 +1,8 @@
-export default {
-    ERR_OK: {
-        code: '0000'
-    },
-    ERR_SYSTEM_ERROR: {
-        error_messages: '系统错误'
-    }
-}
+exports.ERR_OK = {
+    code: '0000'
+};
+// 1000 为系统级别错误编号
+exports.ERR_SYSTEM_ERROR = {
+    code: '1000',
+    msg: '系统错误'
+};

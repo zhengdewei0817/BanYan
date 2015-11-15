@@ -1,16 +1,16 @@
-import parameterCheck from '../config/parameter';
-import utils from '../libs/utils';
+var parameterCheck = require('../config/parameter');
+var utils = require('../libs/utils');
 
-export function parameter(req, res, next){
-    let data = req.method == 'GET' ? req.query : req.body;
+exports.parameter = (req, res, next) => {
+    var data = req.method == 'GET' ? req.query : req.body;
 
     //
-    for(let key in data){
-        let rule = parameterCheck[key];
+    for(var key in data){
+        var rule = parameterCheck[key];
         if(rule && rule.test(data[key]) === false){
             data[key]
         }
     }
 
     next();
-}
+};

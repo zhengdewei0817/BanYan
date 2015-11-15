@@ -1,12 +1,12 @@
-import fs from 'fs';
-import path from 'path';
-import Sequelize from 'sequelize';
-import logger from '../libs/logger';
+var fs = require('fs');
+var path = require('path');
+var Sequelize = require('sequelize');
+var logger = require('../libs/logger');
 
 var sqlLog = logger.log('SQL');
 
-let mysqlConfig = ENV_CONFIG.mysql;
-let sequelize = new Sequelize(mysqlConfig.database, mysqlConfig.username, mysqlConfig.password, {
+var mysqlConfig = ENV_CONFIG.mysql;
+var sequelize = new Sequelize(mysqlConfig.database, mysqlConfig.username, mysqlConfig.password, {
     host: mysqlConfig.host,
     port: mysqlConfig.port,
     dialect: 'mysql',
@@ -24,7 +24,7 @@ let sequelize = new Sequelize(mysqlConfig.database, mysqlConfig.username, mysqlC
     maxConcurrentQueries: 120
 });
 
-let db = {};
+var db = {};
 
 fs
     .readdirSync(__dirname)
@@ -45,4 +45,4 @@ Object.keys(db).forEach(function (modelName) {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-export default db;
+module.exports = db;

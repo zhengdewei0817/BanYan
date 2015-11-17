@@ -1,7 +1,9 @@
 var bodyParser = require('body-parser');
 var express = require('express');
 var path = require('path');
+var _ = require('lodash');
 var template = require('./libs/template');
+var helper = require('./libs/helper');
 
 var session = require('express-session');
 var SessionStore = require('express-mysql-session');
@@ -41,7 +43,7 @@ if(env_name === 'production'){
 }
 
 // 模板中一些公共的变量
-utils.extend(app.locals, ENV_CONFIG.locals || {});
+_.assign(app.locals, ENV_CONFIG.locals || {}, helper);
 // 当前环境
 app.locals.isProduction = (env_name === 'production');
 
@@ -84,15 +86,20 @@ if(env_name === 'production') {
 app.use(parameter);
 
 // 路由生成
+// 会根据文件名生成父级，如：
+// user.js => /user/login
 var routersDir = path.join(__dirname, 'routers');
+var linuxRouterPath = routersDir.split(path.sep).join('/');
 glob.sync(routersDir + '/**/*.js').forEach((file, index) => {
-    var routerName = path.basename(file, '.js');
-    routerName = routerName.replace('index', '');
+    var _path = file.replace(linuxRouterPath, '');
+    var routerPath = _path.split('.js')[0].replace('index', '');
     var router = require(file);
-    app.use(`/${routerName}`, router);
+    console.log(routerPath, file);
+    app.use(`${routerPath}`, router);
 
 });
 
+//app.use('/user/', require('./routers/user/index.js'));
 
 app.use(logger.use());
 

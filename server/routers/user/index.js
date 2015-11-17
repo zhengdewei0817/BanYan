@@ -1,9 +1,9 @@
 var Router = require('express').Router;
-var checkLogin = require('../middleware/checkLogin').checkLogin;
-var ErrorModal = require('../libs/errorModal');
-var requestApi = require('../libs/requestApi').api;
-var utils = require('../libs/utils');
-var models = require('../models');
+var checkLogin = require('../../middleware/checkLogin').checkLogin;
+var ErrorModal = require('../../libs/errorModal');
+var requestApi = require('../../libs/requestApi').api;
+var utils = require('../../libs/utils');
+var models = require('../../models/index');
 
 var api = ENV_CONFIG.api;
 var userRouter = Router();
@@ -13,7 +13,7 @@ userRouter.use(checkLogin);
 userRouter.route('/')
     .get((req, res, next) => {
         res.render('user', {
-            user: req.session.user
+            title: '用户中心'
         });
     })
     .post((req, res, next) => {
@@ -26,4 +26,4 @@ userRouter.route('/')
         });
     });
 
-module .exports = userRouter;
+module.exports = userRouter;

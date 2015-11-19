@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+//-----------------------------------------------------	
+// variables scss
+//-----------------------------------------------------	
+
+
+// switch
+//-----------------------------------------------------	
+@borderBoxSwitch:                true; // true为*{box-sizing:border-box;}
+
+
+// font相关
+//-----------------------------------------------------	
+@fontSize:                       14px;
+@fontLineHeight:                 1.5;
+@fontFamily:                     "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif;
+// ios华文黑体,Android 4.0之后,Android 4.0之前
+@fontCn:                         STHeiTi, Roboto, "Droid Sans Fallback", Arial;
+// ios4.0+,ios4.0-,Android 4.0+,Android 4.0-
+@fontEn:                         "Helvetica Neue", Helvetica, Roboto, "Droid Sans", Arial;
+
+// 背景色，文本色，边框色，链接色
+//-----------------------------------------------------	
+@colorText:                      #333;
+@colorGrey25Text:                #262626;
+@colorBg:                        #fff;
+@colorBody:                      #3769B9;
+@colorBorder:                    #d5d5d5;
+@colorLink:                      #08c; // 如果只有一个值则滑过的值为这个值的darken 5%，如果有两个值则第二个值为滑过的值
+@colorPlaceholder:               #999; // input placeholder color
+@colorDisabled:                  #999 #e3e3e3 #dbdbdb; // textColor bgColor borderColor
+
+
+// 基本颜色
+// color function : http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html
+// lighten(@color, @amount)
+// darken(@color, @amount)
+// opacity(@color, @amount)
+// mix(@color1, @color2[, @amount])
+//-----------------------------------------------------	
+@black:                          #000;
+@gray3:                          #333;
+@gray6:                          #666;
+@gray9:                          #999;
+@grayCD:                         #cdcdcd;
+@grayC:                          #fff;
+@grayF:                          #f5f5f5;
+@white:                          #fff;
+
+// Cool
+@aqua:                           #7fdbff;
+@blue:                           #007aff;
+@navy:                           #001f3f;
+@teal:                           #39cccc;
+@green:                          #6bb82d;
+@olive:                          #3d9970;
+@lime:                           #01ff70;
+
+// Warm
+@yellow:                         #ffb249;
+@orange:                         #ffa200;
+@red:                            #ff4136;
+@fuchsia:                        #d91d91;
+@purple:                         #b10dc9;
+@maroon:                         #ca3c3c;
+
+@primary:                        #0078e7;
+
+
+// 元素上下间距
+//-----------------------------------------------------	
+@gap:                            20px;
+
+
+// header,footer等的高度
+//-----------------------------------------------------	
+@barHeight:                      44px;
+
+
+// radius
+//-----------------------------------------------------	
+@radiusBase:                     5px;
+@radiusSmall:                    3px;
+
+
+// btn
+// 默认的按钮大小，颜色，圆角
+//-----------------------------------------------------	
+@btnSize:                        1em @barHeight; // 默认按钮的左右padding，高度
+@btnColor:                       #333 #e6e6e6; // 默认按钮的textColor, bgColor
+@btnRadius:                      false;
+
+
+// z-index
+//-----------------------------------------------------	
+@zIndexHeader:                   1000;
+@zIndexFooter:                   2000;
+@zIndexPopup:					 3000;
+@zIndexOverlay:                  4000; // 默认高于header和footer部分

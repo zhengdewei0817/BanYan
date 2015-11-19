@@ -26,6 +26,7 @@
   },
   "env": {
     "es6": true,
+    "jquery": true,
     "browser": true,
     "commonjs": true
   },

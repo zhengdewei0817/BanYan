@@ -39,9 +39,9 @@ module.exports = {
         extensions: ['','.js','.jsx', '.less', '.css']
     },
     module: {
-        //preLoaders: [
-        //    { test: /\.js|jsx$/, exclude: node_modules, loader: 'eslint-loader' }
-        //],
+        preLoaders: [
+            { test: /\.js|jsx$/, exclude: node_modules, loader: 'eslint-loader' }
+        ],
         loaders: [
             {
                 test: /\.js?$/,

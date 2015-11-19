@@ -1,9 +1,10 @@
 if (typeof Object.create != 'function') {
     // Production steps of ECMA-262, Edition 5, 15.2.3.5
     // Reference: http://es5.github.io/#x15.2.3.5
-    Object.create = (function() {
+    Object.create = (function () {
         // To save on memory, use a shared constructor
-        function Temp() {}
+        function Temp() {
+        }
 
         // make a safe reference to Object.prototype.hasOwnProperty
         var hasOwn = Object.prototype.hasOwnProperty;
@@ -42,26 +43,24 @@ if (typeof Object.create != 'function') {
     })();
 }
 
-if (!Array.prototype.forEach){
-    Array.prototype.forEach = function(fun){
+if (!Array.prototype.forEach) {
+    Array.prototype.forEach = function (fun) {
         var len = this.length;
-
         var thisp = arguments[1];
-
-        for (var i = 0; i < len; ++i){
-            if (i in this){
+        for (var i = 0; i < len; ++i) {
+            if (i in this) {
                 fun.call(thisp, this[i], i, this);
             }
         }
     };
 }
 
-if (!Array.prototype.indexOf){
-    Array.prototype.indexOf = function(item){
+if (!Array.prototype.indexOf) {
+    Array.prototype.indexOf = function (item) {
         var len = this.length;
 
-        for(var i = 0; i < len; ++i){
-            if(this[i] === item){
+        for (var i = 0; i < len; ++i) {
+            if (this[i] === item) {
                 return i;
             }
         }
@@ -69,10 +68,10 @@ if (!Array.prototype.indexOf){
     };
 }
 
-if (typeof Array.prototype.filter != "function") {
+if (typeof Array.prototype.filter !== 'function') {
     Array.prototype.filter = function (fn, context) {
         var arr = [];
-        if (typeof fn === "function") {
+        if (typeof fn === 'function') {
             for (var k = 0, length = this.length; k < length; k++) {
                 fn.call(context, this[k], k, this) && arr.push(this[k]);
             }

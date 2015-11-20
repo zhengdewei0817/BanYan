@@ -1,0 +1,65 @@
+/* FONT PATH
+ * -------------------------- */
+@font-face {
+  font-family: 'FontTC';
+  src: url('../fonts/fontTC-webfont.eot?v=4.0.3');
+  src: url('../fonts/fontTC-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('../fonts/fontTC-webfont.woff?v=4.0.3') format('woff'), url('../fonts/fontTC-webfont.ttf?v=4.0.3') format('truetype'), url('../fonts/fontTC-webfont.svg?v=4.0.3#fontTC') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.tc-icon {
+  display: inline-block;
+  font-family: FontTC;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* makes the font 33% larger relative to the icon container */
+  &-lg {
+    font-size: 1.3333333333333333em;
+    line-height: 0.75em;
+    vertical-align: -15%;
+  }
+  &-2x {
+    font-size: 2em;
+  }
+  &-3x {
+    font-size: 3em;
+  }
+  &-4x {
+    font-size: 4em;
+  }
+  &-5x {
+    font-size: 5em;
+  }
+  &-fw {
+    width: 1.2857142857142858em;
+    text-align: center;
+  }
+  &-ul {
+    padding-left: 0;
+    margin-left: 2.142857142857143em;
+    list-style-type: none;
+  }
+  &-ul > li {
+    position: relative;
+  }
+  &-li {
+    position: absolute;
+    left: -2.142857142857143em;
+    width: 2.142857142857143em;
+    top: 0.14285714285714285em;
+    text-align: center;
+  }
+  &-li&-lg {
+    left: -1.8571428571428572em;
+  }
+  &-border {
+    padding: .2em .25em .15em;
+    border: solid 0.08em #eeeeee;
+    border-radius: .1em;
+  }
+}

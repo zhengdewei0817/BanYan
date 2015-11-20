@@ -25,7 +25,7 @@ if (process.env.production) {
 
 module.exports = {
     entry: {
-        main: 'js/lib/index.js'
+        login: 'js/page/login.js',
     },
     output: {
         path: path.join(__dirname, '/dist'),

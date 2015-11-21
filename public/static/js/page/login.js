@@ -1,3 +1,3 @@
-/**
- * Created by liuqing-ira on 2015/11/19.
- */
+import Validate from '../component/validate';
+
+new Validate();

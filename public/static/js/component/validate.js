@@ -18,7 +18,8 @@ const DEFAULT_CONFIG = {
     errorParent: '.validate-parent',
     // 错误信息
     errorWrap: `<div class="tc-form-message-inline">{$1}</div>`,
-    remoteCallback: () => {},
+    remoteCallback: () => {
+    },
     ajaxSubmit: () => {
         this.ajax({
             type: this.el.attr('method'),
@@ -33,6 +34,7 @@ const DEFAULT_CONFIG = {
 
 class Validate extends Emitter {
     constructor(form, config) {
+        super(form, config);
         this.el = form;
         this.config = DEFAULT_CONFIG;
         this.setConf(config);
@@ -86,7 +88,7 @@ class Validate extends Emitter {
 
         // 如果是非必填项，而且value是空 直接返回真并且删除log
         if (!rules['required']
-            && value == '') {
+            && value === '') {
             return true;
         }
 
@@ -135,7 +137,7 @@ class Validate extends Emitter {
         if (typeof msg === 'function') {
             msg = msg.call(this, rule.parameters, el);
         } else if (theregex.test(msg)) {
-            msg = msg.replace(theregex, "{$1}");
+            msg = msg.replace(theregex, '{$1}');
             msg = this.util.string.format(msg, rule.parameters);
         }
 
@@ -163,7 +165,7 @@ class Validate extends Emitter {
         this.el.on('submit', () => {
             this.benPending();
             // 异步检查是否完成
-            if(this.pendingRequest){
+            if (this.pendingRequest) {
                 this.formSubmitted = true;
                 return false;
             }
@@ -197,7 +199,7 @@ class Validate extends Emitter {
             let itemParent = config.errorParent ? rule.el.parents(config.errorParent) : rule.el.parent();
             // 获取日志写入节点
             let errMessage = itemParent.find(`[${this.config.validKey}=message]`);
-            let message = type == 'error' ? (this.errorMap[key] || rule.message) : __MSG__[key][type];
+            let message = type === 'error' ? (this.errorMap[key] || rule.message) : __MSG__[key][type];
             message = message || '\n';
             if (!errMessage.length) {
                 errMessage = $(config.errorWrap.replace(/\${\d+}/, message));
@@ -206,23 +208,27 @@ class Validate extends Emitter {
             } else {
                 errMessage.text(message);
             }
-            itemParent.removeClass(`${config.successCls} ${config.focusCls} ${config.errorCls}`).addClass(config[type+'Cls']);
+            itemParent.removeClass(`${config.successCls} ${config.focusCls} ${config.errorCls}`).addClass(config[type + 'Cls']);
         });
 
     }
-    previousValue (el) {
-        return $.data(el, "previousValue") || $.data(el, "previousValue", {
-                old: null,
-                valid: true
-            });
+
+
+    previousValue(el) {
+        return $.data(el, 'previousValue') || $.data(el, 'previousValue', {
+            old: null,
+            valid: true
+        });
     }
-    startRequest (key) {
+
+    startRequest(key) {
         if (!this.pending[key]) {
             this.pendingRequest++;
             this.pending[key] = true;
         }
     }
-    stopRequest (key, valid) {
+
+    stopRequest(key, valid) {
         this.pendingRequest--;
 
         if (this.pendingRequest < 0) {
@@ -244,14 +250,14 @@ class Validate extends Emitter {
      * @param text
      * @param key
      */
-    setMethod (name, fn, text, key){
-        if(arguments.length < 2)
+    setMethod(name, fn, text, key) {
+        if (arguments.length < 2)
             return;
 
         // 存在的直接覆盖
         __METHOD__[name] = fn;
 
-        if(!text) return;
+        if (!text) return;
         __MSG__[key][name] = text;
     }
 }
@@ -286,7 +292,7 @@ __METHOD__['remote'] = (value, el, rule) => {
     previous.old = value;
 
     let param = rule.parameters;
-    param = typeof param === "string" && {url: param} || param;
+    param = typeof param === 'string' && {url: param} || param;
 
     self.startRequest(rule.key);
 
@@ -301,7 +307,7 @@ __METHOD__['remote'] = (value, el, rule) => {
     //			d: value
     //      }
     // }
-    if(typeof data == 'function'){
+    if (typeof data === 'function') {
         data = data(el, value);
     }
 
@@ -310,7 +316,7 @@ __METHOD__['remote'] = (value, el, rule) => {
     this.ajax({
         isNotPop: true,
         url: param.url,
-        dataType: "json",
+        dataType: 'json',
         data: data,
         success: (json) => {
             let submitted = _this.formSubmitted;
@@ -321,14 +327,14 @@ __METHOD__['remote'] = (value, el, rule) => {
             previous.valid = true;
         },
         error: (json) => {
-            var msg = json.error || rule.message;
+            let msg = json.error || rule.message;
             __MSG__[rule.key]['remote'] = msg;
             rule.message = msg;
             fn && fn(json);
             self.showLog([rule], 'error');
             previous.valid = false;
         },
-        done: function(valid){
+        done: function (valid) {
             self.stopRequest(rule.key, valid);
         }
     });
@@ -343,12 +349,12 @@ __METHOD__['remote'] = (value, el, rule) => {
  */
 __METHOD__['required'] = (value, el) => {
     if (el[0].nodeName.toLowerCase() === 'select') {
-        var v = el[0].value;
-        if(v === '0') return true;
+        let v = el[0].value;
+        if (v === '0') return true;
         return !!v;
     }
-    if (fm.checkable(el)) {
-        return fm.getLength(el) > 0;
+    if (this.util.form.checkable(el)) {
+        return this.util.form.getLength(el) > 0;
     }
     return $.trim(value).length > 0;
 };
@@ -361,10 +367,10 @@ __METHOD__['required'] = (value, el) => {
  * @returns {boolean}
  */
 __METHOD__['equalTo'] = (value, el, rule) => {
-    var self = this;
-    var target = self.nodes_cache[rule.parameters];
-    if(!target) return true;
-    return value === aw.util.form.elValue(target);
+    let self = this;
+    let target = self.nodes_cache[rule.parameters];
+    if (!target) return true;
+    return value === this.util.form.elValue(target);
 };
 /**
  * 不等
@@ -374,10 +380,10 @@ __METHOD__['equalTo'] = (value, el, rule) => {
  * @returns {boolean}
  */
 __METHOD__['unequal'] = (value, el, rule) => {
-    var self = this;
-    var target = self.nodes_cache[rule.parameters];
-    if(!target) return true;
-    return value !== aw.util.form.elValue(target);
+    let self = this;
+    let target = self.nodes_cache[rule.parameters];
+    if (!target) return true;
+    return value !== this.util.form.elValue(target);
 };
 
 /**
@@ -389,8 +395,8 @@ __METHOD__['unequal'] = (value, el, rule) => {
  * @returns {boolean}
  */
 __METHOD__['range'] = (value, el, rule) => {
-    var param = rule.parameters;
-    var len = value.length
+    let param = rule.parameters;
+    let len = value.length;
     return len >= param[0] && len <= param[1];
 };
 

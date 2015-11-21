@@ -1,4 +1,3 @@
-
 const form = {
     /**
      * 获取value
@@ -7,14 +6,14 @@ const form = {
      */
     elValue: (el) => {
         el = $(el);
-        let type = el.attr("type");
+        let type = el.attr('type');
         let val = $.trim(el.val());
 
-        if (type === "radio" || type === "checkbox") {
-            return $("input[name='" + el.attr("name") + "']:checked").val();
+        if (type === 'radio' || type === 'checkbox') {
+            return $('input[name=' + el.attr('name') + ']:checked').val();
         }
-        if (typeof val === "string") {
-            return val.replace(/\r/g, "");
+        if (typeof val === 'string') {
+            return val.replace(/\r/g, '');
         }
         return val;
     },
@@ -32,7 +31,7 @@ const form = {
      * @returns {Number|jQuery}
      */
     getLength: el => {
-        return $(el).filter(":checked").length;
+        return $(el).filter(':checked').length;
     },
     /**
      * 获取表单元素
@@ -41,17 +40,17 @@ const form = {
      */
     getInps: (form, callback) => {
         let inps = form.find(':input:not(:submit)');
-        $.each(inps, function(){
-            let $this = $(this);
-            let type = $this.attr('type');
-            let ignore = $this.data('ignore');
-            let name = $this.attr('name');
 
-            if(type === 'submit' || ignore || !name)
+        for(let el of inps){
+            let type = el.attr('type');
+            let ignore = el.data('ignore');
+            let name = el.attr('name');
+
+            if (type === 'submit' || ignore || !name)
                 return;
 
-            callback && callback($this);
-        });
+            callback && callback(el);
+        }
     },
     /**
      * 获取form表单数据
@@ -63,10 +62,10 @@ const form = {
 
         form.getInps(form, (el) => {
             // 防止选取所有checkbox
-            if(!$this.is(':checked') && form.checkable($this))
+            if (!el.is(':checked') && form.checkable(el))
                 return;
 
-            obj[name] = form.elValue($this);
+            obj[name] = form.elValue(el);
         });
         return obj;
     }
@@ -150,26 +149,9 @@ const str = {
      * @param params
      * @returns {*}
      */
-    format: (source, params) => {
-        var self = this;
-        if(arguments.length === 1){
-            return function(){
-                var args = [].slice.call(arguments, 0);
-                args.unshift(source);
-                return self.format.apply(this, args);
-            }
-        }
-
-        if(arguments.length > 2 && params.constructor !== Array){
-            params = [].slice.call(arguments, 1);
-        }
-
-        if (params.constructor !== Array) {
-            params = [params];
-        }
-
+    format: (source, ...params) => {
         $.each(params, (i, n) => {
-            source = source.replace(new RegExp("\\{" + i + "\\}", "g"), function() {
+            source = source.replace(new RegExp('\\{' + i + '\\}', 'g'), function () {
                 return n;
             });
         });
@@ -181,4 +163,4 @@ const str = {
 export default {
     string: str,
     form: form
-}
+};

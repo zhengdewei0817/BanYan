@@ -138,7 +138,7 @@ function _compile(source) {
     let openArr = source.split(NT.openTag),
         tempCode = '';
 
-    openArr.forEach((code) => {
+    for (let code of openArr) {
         let codeArr = code.split(NT.closeTag);
         let c0 = codeArr[0],
             c1 = codeArr[1];
@@ -149,7 +149,7 @@ function _compile(source) {
             tempCode += _js(c0);
             tempCode += c1 ? _html(c1) : '';
         }
-    });
+    }
 
 
     let code = 'function $getValue(key){return $data.hasOwnProperty(key) ? $data[key] : this[$data];};'

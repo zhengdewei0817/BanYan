@@ -20,7 +20,7 @@ const DEFAULT_CONFIG = {
     errorWrap: `<div class="tc-form-message-inline">{$1}</div>`,
     remoteCallback: () => {
     },
-    ajaxSubmit: () => {
+    ajaxSubmit: function () {
         this.ajax({
             type: this.el.attr('method'),
             url: this.el.attr('action'),
@@ -215,10 +215,11 @@ class Validate extends Emitter {
 
 
     previousValue(el) {
-        return $.data(el, 'previousValue') || $.data(el, 'previousValue', {
-            old: null,
-            valid: true
-        });
+        return $.data(el, 'previousValue')
+            || $.data(el, 'previousValue', {
+                old: null,
+                valid: true
+            });
     }
 
     startRequest(key) {
@@ -279,7 +280,7 @@ class Validate extends Emitter {
  * @param rule
  * @returns {*}
  */
-__METHOD__['remote'] = (value, el, rule) => {
+__METHOD__['remote'] = function (value, el, rule) {
     let self = this;
     let config = self.config;
     let fn = config.remoteCallback;
@@ -347,7 +348,7 @@ __METHOD__['remote'] = (value, el, rule) => {
  * @param el
  * @returns {boolean}
  */
-__METHOD__['required'] = (value, el) => {
+__METHOD__['required'] = function (value, el) {
     if (el[0].nodeName.toLowerCase() === 'select') {
         let v = el[0].value;
         if (v === '0') return true;
@@ -366,7 +367,7 @@ __METHOD__['required'] = (value, el) => {
  * @param rule
  * @returns {boolean}
  */
-__METHOD__['equalTo'] = (value, el, rule) => {
+__METHOD__['equalTo'] = function (value, el, rule) {
     let self = this;
     let target = self.nodes_cache[rule.parameters];
     if (!target) return true;
@@ -379,7 +380,7 @@ __METHOD__['equalTo'] = (value, el, rule) => {
  * @param rule
  * @returns {boolean}
  */
-__METHOD__['unequal'] = (value, el, rule) => {
+__METHOD__['unequal'] = function (value, el, rule) {
     let self = this;
     let target = self.nodes_cache[rule.parameters];
     if (!target) return true;
@@ -394,7 +395,7 @@ __METHOD__['unequal'] = (value, el, rule) => {
  * @param rule
  * @returns {boolean}
  */
-__METHOD__['range'] = (value, el, rule) => {
+__METHOD__['range'] = function (value, el, rule) {
     let param = rule.parameters;
     let len = value.length;
     return len >= param[0] && len <= param[1];

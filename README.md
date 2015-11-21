@@ -1,6 +1,6 @@
-# VW
+# Banyan
 
-基于express4 和 es6 的一个项目构建的实现
+## 结构
 
 ```
 ngxconf -- nginx配置文件

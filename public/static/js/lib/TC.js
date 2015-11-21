@@ -26,6 +26,10 @@ class TJZC {
     __init() {
     }
 
+    setConf (config){
+        this.config = $.extend({}, this.config, config);
+    }
+
     /**
      * 日志
      */

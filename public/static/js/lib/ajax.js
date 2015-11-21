@@ -6,8 +6,10 @@
 export default function (options) {
     $.ajax(options || {}).success(res => {
         if (res.errno === 0) {
-            return options.success && options.success(res);
+            options.success && options.success(res);
+        } else {
+            options.error && options.error(res);
         }
-        return options.error && options.error(res);
+        options.done && options.done(res);
     });
 }

@@ -1,3 +1,3 @@
-import Validate from '../component/validate';
+import Validate from '../component/Validate';
 
 new Validate();

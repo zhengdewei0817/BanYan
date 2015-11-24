@@ -8,11 +8,11 @@ var models = require('../../models/index');
 var api = ENV_CONFIG.api;
 var userRouter = Router();
 
-userRouter.use(checkLogin);
+//userRouter.use(checkLogin);
 
 userRouter.route('/')
     .get((req, res, next) => {
-        res.render('user', {
+        res.render('user/index', {
             title: '用户中心'
         });
     })

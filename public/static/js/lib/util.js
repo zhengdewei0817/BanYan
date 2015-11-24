@@ -39,18 +39,20 @@ const form = {
      * @param callback
      */
     getInps: (form, callback) => {
-        let inps = form.find(':input:not(:submit)');
+        let inps = form.find('input');
 
-        for(let el of inps){
+        $.each(inps, function(){
+            let el = $(this);
             let type = el.attr('type');
             let ignore = el.data('ignore');
             let name = el.attr('name');
-
-            if (type === 'submit' || ignore || !name)
+            // 忽略不需要提交的input
+            if (type === 'submit' || type === 'button' || ignore || !name){
                 return;
+            }
 
             callback && callback(el);
-        }
+        });
     },
     /**
      * 获取form表单数据

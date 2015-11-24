@@ -5,6 +5,7 @@
       "cwd"       : "project root",
       "script"    : "run.js",
       "exec_mode"    : "cluster",
+      "node_args"    : "--harmony",
       "env" : {
         "NODE_ENV": "production"
       },

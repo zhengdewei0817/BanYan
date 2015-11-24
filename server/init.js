@@ -94,12 +94,9 @@ glob.sync(routersDir + '/**/*.js').forEach((file, index) => {
     var _path = file.replace(linuxRouterPath, '');
     var routerPath = _path.split('.js')[0].replace('index', '');
     var router = require(file);
-    console.log(routerPath, file);
     app.use(`${routerPath}`, router);
 
 });
-
-//app.use('/user/', require('./routers/user/index.js'));
 
 app.use(logger.use());
 

@@ -9,7 +9,7 @@ const DEFAULT_CONFIG = {
     focusCls: null,
     successCls: 'ui-validate-success',
     errorCls: 'ui-validate-error',
-    //
+    // <input data-validate="username" /> 
     validKey: 'validate',
     // 规则
     rules: {},
@@ -31,22 +31,54 @@ const DEFAULT_CONFIG = {
         });
     }
 };
-
+/**
+ * 表单验证类
+ *
+ * @example
+ *
+ * new Validate(form).init();
+ *
+ * or
+ *
+ * new Validate.setConfig({
+ *     rules: {
+ *       username: {
+ *          required: true
+ *       }
+ *     },
+ *     message: {
+ *       username: {
+ *           required: 'username为必填号'
+ *       }
+ *     }
+ *  }).init();
+ *
+ */
 class Validate extends Emitter {
     constructor(form, config) {
         super(form, config);
         this.el = form;
-        this.config = DEFAULT_CONFIG;
-        this.setConf(config);
-
         this.errorList = [];
         this.pending = {};
         this.pendingRequest = 0;
 
-        this.onEvent();
-
+        this.config = DEFAULT_CONFIG;
     }
 
+    /**
+     * 执行
+     */
+    run (){
+        this.onEvent();
+    }
+    /**
+     * 添加配置
+     * @param config
+     */
+    setConfig (config = {}){
+        this.config = $.extend({}, this.config, config);
+        return this;
+    }
     /**
      * 错误重置
      */
@@ -54,6 +86,7 @@ class Validate extends Emitter {
         this.errorList = [];
         this.successList = [];
         this.errorMap = {};
+        return this;
     }
 
     /**
@@ -79,8 +112,11 @@ class Validate extends Emitter {
      */
     check(el) {
         let key = el.data(this.config.validKey);
-        let value = this.util.from.elValue(this.el);
+        let value = this.util.form.elValue(el);
         let rules = this.config.rules[key];
+
+        if(!rules)
+            return true;
 
         // 不存在或者不需要检查的返回true
         if (!el.length || el.data(this.config.ignore))
@@ -162,8 +198,7 @@ class Validate extends Emitter {
      * @returns {Validate}
      */
     onEvent() {
-        this.el.on('submit', () => {
-            this.benPending();
+        this.el.submit(() => {
             // 异步检查是否完成
             if (this.pendingRequest) {
                 this.formSubmitted = true;
@@ -172,6 +207,7 @@ class Validate extends Emitter {
 
             // 检查所有的表单
             let result = this.checkAll();
+
             if (!result) {
                 return false;
             }
@@ -196,13 +232,14 @@ class Validate extends Emitter {
 
         $.each(list, (i, rule) => {
             let key = rule.key || rule;
-            let itemParent = config.errorParent ? rule.el.parents(config.errorParent) : rule.el.parent();
+            let itemParent = rule.el.parents(config.errorParent);
+            itemParent = itemParent.length ? itemParent : rule.el.parent();
             // 获取日志写入节点
             let errMessage = itemParent.find(`[${this.config.validKey}=message]`);
             let message = type === 'error' ? (this.errorMap[key] || rule.message) : __MSG__[key][type];
             message = message || '\n';
             if (!errMessage.length) {
-                errMessage = $(config.errorWrap.replace(/\${\d+}/, message));
+                errMessage = $(config.errorWrap.replace(/{\$\d+}/, message));
                 errMessage.attr(this.config.validKey, 'message');
                 itemParent.append(errMessage);
             } else {

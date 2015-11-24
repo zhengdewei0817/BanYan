@@ -13,22 +13,26 @@ var plugins = [
 var outputFilename = '[name].js';
 if (process.env.production) {
     plugins.push(
-        new ExtractTextPlugin('[name].[contenthash:6].css'),
+        new ExtractTextPlugin('[name].[contenthash:6].css', {
+            allChunks: true
+        }),
         new webpack.optimize.UglifyJsPlugin({})
     );
     outputFilename = '[name].[chunkhash:6].js';
 } else {
     plugins.push(
-        new ExtractTextPlugin('[name].css')
+        new ExtractTextPlugin('[name].css', {
+            allChunks: true
+        })
     )
 }
 
 module.exports = {
     entry: {
-        login: 'js/page/login.js',
+        'login': 'js/page/login',
     },
     output: {
-        path: path.join(__dirname, '/dist'),
+        path: path.join(__dirname, '/build'),
         filename: outputFilename
     },
     resolve: {
@@ -52,7 +56,7 @@ module.exports = {
                 }
             },
             { test: /\.css$/, loader: 'style-loader!css-loader' },
-            { test: /\.less/, loader: 'style!css!less?sourceMap'},
+            { test: /\.less$/, loader: 'style!css!less?sourceMap'},
             { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'}
         ]
     },

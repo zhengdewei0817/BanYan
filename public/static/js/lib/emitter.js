@@ -66,12 +66,11 @@ class Emitter extends TC {
     }
 
     /**
-     * 绑定一组
+     * 触发
      * @param event
      * @returns {Emitter}
      */
-    emit(event) {
-        let args = [].slice.call(arguments, 1);
+    emit(event, ...args) {
         let cbs = this.callbacks[event];
 
         if (cbs) {

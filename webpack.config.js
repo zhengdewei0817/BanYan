@@ -57,6 +57,13 @@ module.exports = {
             },
             { test: /\.css$/, loader: 'style-loader!css-loader' },
             { test: /\.less$/, loader: 'style!css!less?sourceMap'},
+            {
+                test: /\.less$/,
+                loader: ExtractTextPlugin.extract(
+                    'css?sourceMap!' +
+                    'less?sourceMap'
+                )
+            },
             { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'}
         ]
     },

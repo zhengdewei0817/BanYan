@@ -1,5 +1,5 @@
 import Validate from '../component/Validate';
-require('../../less/forms/forms.less');
+import '../../less/forms/forms.less';
 
 const form = $('form');
 new Validate(form).setConfig({

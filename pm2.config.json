@@ -1,18 +1,20 @@
 {
   "apps" : [
     {
-      "name"      : "vw",
-      "cwd"       : "project root",
+      "name"      : "Banyan",
+      "cwd"       : "/home/liuqing-ira/project/Banyan",
       "script"    : "run.js",
-      "exec_mode"    : "cluster",
-      "node_args"    : "--harmony",
-      "env" : {
-        "NODE_ENV": "production"
+      "exec_mode" : "cluster",
+      "node_args" : "--harmony",
+      "watch"     : ["server"],
+      "env"       : {
+//        "NODE_ENV": "production"
+        "NODE_ENV": "development"
       },
-      "log_date_format": "YYYY-MM-DD HH:mm Z",
-      "error_file": "/logs/error.log",
-      "out_file":   "/logs/out.log",
-      "pid_file":   "/logs/pid.log",
+      "log_date_format" : "YYYY-MM-DD HH:mm Z",
+      "error_file"      : "/home/liuqing-ira/project/Banyan/logs/error.log",
+      "out_file"        :   "/home/liuqing-ira/project/Banyan/logs/out.log",
+      "pid_file"        :   "/home/liuqing-ira/project/Banyan/logs/pid.log",
       "max_memory_restart":   "400M",
       "instances":   "max"
     }

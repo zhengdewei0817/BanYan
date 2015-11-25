@@ -1,6 +1,7 @@
 build/
 dist/
 _drafts/
+/config/ngx/production.*.conf
 _site/
 .DS_Store
 npm-debug.log

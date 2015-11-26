@@ -190,5 +190,5 @@ class Dialog extends Emitter {
         return this;
     }
 }
-// new Dailog().setConfig().run();
+// new Dailog().setConfig().init()
 export default Dialog;

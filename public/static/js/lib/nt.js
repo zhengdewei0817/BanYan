@@ -9,7 +9,7 @@ let logicInTpl = {};
 let _cache = {};
 let vars = 'var ';
 let _isNewEngine = ''.trim;
-let codesArr = _isNewEngine ? ['ret = "";', 'ret +=', ';', 'ret;'] : ['ret = [];', 'ret.push(', ');', 'ret.join("");'];
+let codesArr = _isNewEngine ? ['ret = "";\n', 'ret +=', ';\n', 'ret;'] : ['ret = [];\n', 'ret.push(', ');\n', 'ret.join("");\n'];
 
 // js关键字表
 let _keyWordsMaps = {};
@@ -98,7 +98,7 @@ function dealLogic(source) {
             return;
         }
         if (!logicInTpl[logic]) {
-            vars += logic + '= $getValue("' + logic + '"),';
+            vars += logic + '= $getValue("' + logic + '")\n,';
             logicInTpl[logic] = 1;
         }
     });
@@ -135,11 +135,11 @@ function _js(source) {
  */
 function _compile(source) {
 
-    let openArr = source.split(NT.openTag),
+    let openArr = source.split(NT.open),
         tempCode = '';
 
-    for (let code of openArr) {
-        let codeArr = code.split(NT.closeTag);
+    openArr.forEach((code) => {
+        let codeArr = code.split(NT.close);
         let c0 = codeArr[0],
             c1 = codeArr[1];
         if (codeArr.length === 1) {
@@ -149,10 +149,9 @@ function _compile(source) {
             tempCode += _js(c0);
             tempCode += c1 ? _html(c1) : '';
         }
-    }
+    });
 
-
-    let code = 'function $getValue(key){return $data.hasOwnProperty(key) ? $data[key] : this[$data];};'
+    let code = 'function $getValue(key){\nreturn $data.hasOwnProperty(key) ? $data[key] : this[$data];\n};\n'
         + vars + codesArr[0] + tempCode + 'return ' + codesArr[3];
     try {
         return new Function('$data', code);

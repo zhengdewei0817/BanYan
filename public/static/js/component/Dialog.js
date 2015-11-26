@@ -164,12 +164,12 @@ class Dialog extends Emitter {
             };
 
             /**根据浏览器调整遮罩层css*/
-            let taskH=task.clientHeight();
-            let taskP=0;
+            let taskH = task.clientHeight();
+            let taskP = 0;
             if (typeof getComputedStyle !== 'undefined') {
-                taskP = parseInt(getComputedStyle(task).getPropertyValue('padding-top'),10);
+                taskP = parseInt(getComputedStyle(task).getPropertyValue('padding-top'), 10);
             } else {
-                taskP=parseInt(task.currentStyle.padding);
+                taskP = parseInt(task.currentStyle.padding);
             }
             let taskMarginTop = `${parseInt((taskH + taskP) / 2)}px`;
 
@@ -177,6 +177,10 @@ class Dialog extends Emitter {
                 position: 'absolute',
                 width: `${$(window).width()}px`,
                 height: `${$(window).height()}px`
+            });
+
+            $.extend(cssDialog, {
+                marginTop: taskMarginTop
             });
 
             /**应用css*/

@@ -30,6 +30,7 @@ if (process.env.production) {
 module.exports = {
     entry: {
         'login': 'js/page/login',
+        'dialog': 'js/page/dialog',
     },
     output: {
         path: path.join(__dirname, '/build'),

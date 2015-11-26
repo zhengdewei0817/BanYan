@@ -17,7 +17,7 @@
  *	new Tab('.tc-tab', {
  *		childNode: '.tab-item',
  *		contentNode: '.tc-tab-content',
- *		isSingleContent: false
+ *		renderType: 'not'
  *	})
  * 
  */
@@ -26,7 +26,7 @@ import Emitter from '../lib/emitter';
 
 const DEFABULT = {
     childNode: '.tab-item',
-    contentNode: 'tc-tab-content',
+    contentNode: '.tc-tab-content',
     active: 1,
     eventType: 'click',
     activeClass: 'active',
@@ -34,15 +34,14 @@ const DEFABULT = {
 };
 
 class Tab extends Emitter {
-    constructor (el, config){
-        super(el, config);
-        this.el = el;
-        this.config = config;
+    constructor (el) {
+        super(el);
+        this.el = $(el);
+        this.config = DEFABULT;
+
+        this.events[`${this.config.eventType} ${this.config.childNode}`] = 'switchEvent';
     }
 
-    run (){
-        this.onEvent();
-    }
     /**
      * 配置
      * @param {Object} config 传入配置
@@ -58,32 +57,31 @@ class Tab extends Emitter {
      * @param el        点击的元素
      * @returns {string}
      */
-    setTplRender (el){
-        return ''
+    setTplRender (){}
+
+    switchStyle (index){
+        const tabContent = $(`${this.config.contentNode}:eq(${index})`);
+        tabContent.removeClass('hide');
+        tabContent.addClass('show').siblings(this.config.contentNode).addClass('hide').removeClass('show');
     }
 
     /**
      * 事件绑定
      */
-    onEvent (){
-        $(this.el).on(this.config.eventType, this.config.childNode, (evt) => {
-            let $this = $(evt.target);
-            let index = $this.index();
-            // 样式切换
-            $this.addClass(this.config.activeClass).siblings(this.config.childNode).removeClass(this.config.activeClass);
-            // 根据不同的类型切换渲染的方式
-            switch (this.config.render){
-                case 'tpl':
-                    let html = this.setTplRender.call(this, $this);
-                    $(this.config.contentNode).html(html);
-                    break;
-                default :
-                    $(`${this.config.contentNode}:eq(${index})`).addClass('show').siblings(this.config.contentNode).addClass('hide');
-            }
-            // 内容切换
-        });
-        // 默认选中
-        $(`${this.config.childNode}:eq(${this.config.active - 1})`).trigger(this.config.eventType);
+    switchEvent (evt){
+        let $this = $(evt.target);
+        let index = $this.index();
+        // 样式切换
+        $this.addClass(this.config.activeClass).siblings(this.config.childNode).removeClass(this.config.activeClass);
+        // 根据不同的类型切换渲染的方式
+        switch (this.config.renderType){
+            case 'tpl':
+                let html = this.setTplRender.call(this, $this);
+                $(this.config.contentNode).html(html);
+                break;
+            default :
+                this.switchStyle(index);
+        }
     }
 }
 

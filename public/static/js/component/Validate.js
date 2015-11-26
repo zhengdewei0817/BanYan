@@ -59,18 +59,16 @@ class Validate extends Emitter {
         super(form, config);
         this.el = form;
         this.errorList = [];
+        this.errorMap = {};
         this.pending = {};
         this.pendingRequest = 0;
-
+        this.events = {
+            'submit': 'onSubmit',
+            'blur input': 'onBlur'
+        };
         this.config = DEFAULT_CONFIG;
     }
 
-    /**
-     * 执行
-     */
-    run (){
-        this.onEvent();
-    }
     /**
      * 添加配置
      * @param config
@@ -193,33 +191,34 @@ class Validate extends Emitter {
         return this.valid();
     }
 
+    onBlur (event){
+        const $this = $(event.target);
+        this.check($this);
+    }
     /**
-     * form表单事件绑定
-     * @returns {Validate}
+     * 绑定表单事件
+     * @returns {boolean}
      */
-    onEvent() {
-        this.el.submit(() => {
-            // 异步检查是否完成
-            if (this.pendingRequest) {
-                this.formSubmitted = true;
-                return false;
-            }
+    onSubmit (){
+        // 异步检查是否完成
+        if (this.pendingRequest) {
+            this.formSubmitted = true;
+            return false;
+        }
 
-            // 检查所有的表单
-            let result = this.checkAll();
+        // 检查所有的表单
+        let result = this.checkAll();
 
-            if (!result) {
-                return false;
-            }
+        if (!result) {
+            return false;
+        }
 
-            // 如果结果为true，并且是ajax提交
-            if (this.config.ajaxSubmit) {
-                this.config.ajaxSubmit.call(this);
-                return false;
-            }
-            return true;
-        });
-        return this;
+        // 如果结果为true，并且是ajax提交
+        if (this.config.ajaxSubmit) {
+            this.config.ajaxSubmit.call(this);
+            return false;
+        }
+        return true;
     }
 
     /**

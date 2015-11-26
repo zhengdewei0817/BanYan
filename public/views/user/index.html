@@ -2,11 +2,26 @@
 <% block('csst').append('<link rel="stylesheet" href="/login.css">') %>
 
 <div class="login">
-    <form action="/login" method="post">
-        <input type="text" name="username" data-validate="username"/>
-        <input type="password" name="password" data-validate="password"/>
-        <input type="submit" id="login" value="登录"/>
-    </form>
+    <div class="tc-tab">
+        <div class="tab-item">登录</div>
+        <div class="tab-item">注册</div>
+    </div>
+    <div class="tc-tab-content">
+        <form action="/login" method="post">
+            <input type="text" name="username" data-validate="username"/>
+            <input type="password" name="password" data-validate="password"/>
+            <input type="submit" id="login" value="登录"/>
+        </form>
+    </div>
+    <div class="tc-tab-content">
+        <form action="/reg" method="post">
+            <input type="text" name="username" data-validate="username"/>
+            <input type="password" name="password" data-validate="password"/>
+            <input type="text" name="email" data-validate="email"/>
+            <input type="text" name="mobile" data-validate="mobile"/>
+            <input type="submit" value="注册"/>
+        </form>
+    </div>
 </div>
 
 <% block('jst').append('<script src="/login.js"></script>') %>

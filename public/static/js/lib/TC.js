@@ -14,9 +14,14 @@ class TJZC {
         this.util = util;
         this.tpl = nt.tpl;
 
-        this.ui = {};
+        this.events = {};
 
         this.__init();
+    }
+
+    run (){
+        this.init && this.init();
+        this.delegateEvents();
     }
 
     /**
@@ -58,6 +63,30 @@ class TJZC {
     noop() {
     }
 
+    /**
+     * 事件绑定
+     */
+    delegateEvents (){
+        let key;
+        for (key in this.events) {
+            let methodName = this.events[key];
+            let method = this[methodName] || this.noop;
+            let match = key.match(/^(\w+)\s*(.*)$/);
+            let eventName = match[1];
+            let selector = match[2];
 
+            if (selector === '') {
+                this.el.on(eventName, (event) => {
+                    return method.call(this, event);
+                });
+                return this;
+            }
+
+            this.el.on(eventName, selector, (event) => {
+                return method.call(this, event);
+            });
+            return this;
+        }
+    }
 }
 module.exports = window.TJZC = TJZC;

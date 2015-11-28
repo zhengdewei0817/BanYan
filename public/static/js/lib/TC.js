@@ -1,4 +1,4 @@
-import ajax from './ajax';
+import getJSON from './getJSON';
 import nt from './nt';
 import util from './util';
 
@@ -10,7 +10,7 @@ class TJZC {
         this.now = this.getNow();
         this.config = {};
 
-        this.ajax = ajax;
+        this.getJSON = getJSON;
         this.util = util;
         this.tpl = nt.tpl;
 
@@ -38,10 +38,10 @@ class TJZC {
     /**
      * 日志
      */
-    debug() {
+    debug(...arg) {
         if (!window.console)
             return;
-        window.console.log.call(null, arguments);
+        window.console.log.apply(window.console, arg);
     }
 
     /**

@@ -1,5 +1,4 @@
-
-//-----------------------------------------------------  
+//-----------------------------------------------------
 // mixin scss
 // 包括常用的mixin, %, @function 及辅助的btn和背景图片icon
 // mixin，通过@include调用，样式通过拷贝的方式使用，尤其适用于传递参数
@@ -13,186 +12,186 @@
 
 // Center-align a block level element
 .center-block(@extend: true) {
-  & when (@extend){
-    margin-left: auto;
-    margin-right: auto;
-  }
+    & when (@extend) {
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
 // clearfix
 .clearfix(@extend: true) {
 
-  & when (@extend){
-    &:before,
-    &:after {
-      content: "";
-      display: table;
+    & when (@extend) {
+        &:before,
+        &:after {
+            content: "";
+            display: table;
+        }
+        &:after {
+            clear: both;
+        }
     }
-    &:after {
-      clear: both;
-    }
-  }
 }
 
 // Hide only visually, but have it available for screenreaders
 // 只隐藏于视觉，屏幕浏览器可以阅读
 .hidden-clip(@extend: true) {
-  & when (@extend){
-    position: absolute;
-    clip: rect(1px, 1px, 1px, 1px);
-  }
+    & when (@extend) {
+        position: absolute;
+        clip: rect(1px, 1px, 1px, 1px);
+    }
 }
 
 // ellipsis
 .ellipsis(@extend: true) {
-  & when (@extend){
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
+    & when (@extend) {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
 }
 
 // 只有webkit支持多行省略号
 .ellipsis-lines(@lines: 2) {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: @lines;
-  -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: @lines;
+    -webkit-box-orient: vertical;
 }
 
 // word-break
 // 用于链接地址强制换行
 .word-break(@extend: true) {
-  & when (@extend){
-    white-space: normal;
-    word-wrap: break-word;
-    word-break: break-all;
-  }
+    & when (@extend) {
+        white-space: normal;
+        word-wrap: break-word;
+        word-break: break-all;
+    }
 }
 
 // text-center
 // 文本位置
-.t-align(@textPos: center){
-  text-align: @textPos;
+.t-align(@textPos: center) {
+    text-align: @textPos;
 }
 
 // disabled
 // 禁用样式，加!important
 .disabled(@textColor: nth(@colorDisabled, 1), @bgColor: nth(@colorDisabled, 2), @borderColor: false) {
-  background-color: @bgColor !important;
-  color: @textColor !important;
-  cursor: default !important;
-  pointer-events: none !important;
-  & when (@borderColor){
-    border: 1px solid nth(@colorDisabled, 3);
-  }
+    background-color: @bgColor !important;
+    color: @textColor !important;
+    cursor: default !important;
+    pointer-events: none !important;
+    & when (@borderColor) {
+        border: 1px solid nth(@colorDisabled, 3);
+    }
 }
 
 // fixed top & bottom
 .fixed(@pos: 0) {
-  position: fixed;
-  left: 0;
-  right: 0;
+    position: fixed;
+    left: 0;
+    right: 0;
 }
 
 // justify
 .justify(@extend: true) {
-  & when(@extend){
-    display: flex;
-    justify-content: space-between;
-  }
+    & when (@extend) {
+        display: flex;
+        justify-content: space-between;
+    }
 }
 
 // triangle 三角箭头
 .triangle-basic() {
-   content: "";
-   height: 0;
-   width: 0;
-   overflow: hidden;
- }
+    content: "";
+    height: 0;
+    width: 0;
+    overflow: hidden;
+}
 
 .triangle(@direction: top, @borderWidth: 6px, @borderColor: @grayC) {
-  .triangle-basic();
-  & when (@direction = top){
-    border-bottom: @borderWidth / 75 * 1rem solid @borderColor;
-    border-left: @borderWidth / 75 * 1rem dashed transparent;
-    border-right: @borderWidth / 75 * 1rem dashed transparent;
-  }
-  & when (@direction = right){
-    border-left: @borderWidth / 75 * 1rem solid @borderColor;
-    border-top: @borderWidth / 75 * 1rem dashed transparent;
-    border-bottom: @borderWidth / 75 * 1rem dashed transparent;
-  }
-  & when (@direction = bottom){
-    border-top: @borderWidth / 75 * 1rem solid @borderColor;
-    border-left: @borderWidth / 75 * 1rem dashed transparent;
-    border-right: @borderWidth / 75 * 1rem dashed transparent;
-  }
+    .triangle-basic();
+    & when (@direction = top) {
+        border-bottom: @borderWidth / 75 * 1rem solid @borderColor;
+        border-left: @borderWidth / 75 * 1rem dashed transparent;
+        border-right: @borderWidth / 75 * 1rem dashed transparent;
+    }
+    & when (@direction = right) {
+        border-left: @borderWidth / 75 * 1rem solid @borderColor;
+        border-top: @borderWidth / 75 * 1rem dashed transparent;
+        border-bottom: @borderWidth / 75 * 1rem dashed transparent;
+    }
+    & when (@direction = bottom) {
+        border-top: @borderWidth / 75 * 1rem solid @borderColor;
+        border-left: @borderWidth / 75 * 1rem dashed transparent;
+        border-right: @borderWidth / 75 * 1rem dashed transparent;
+    }
 
-  & when (@direction = left){
-    border-right: @borderWidth / 75 * 1rem solid @borderColor;
-    border-top: @borderWidth / 75 * 1rem dashed transparent;
-    border-bottom: @borderWidth / 75 * 1rem dashed transparent;
-  }
+    & when (@direction = left) {
+        border-right: @borderWidth / 75 * 1rem solid @borderColor;
+        border-top: @borderWidth / 75 * 1rem dashed transparent;
+        border-bottom: @borderWidth / 75 * 1rem dashed transparent;
+    }
 }
 
 // arrow 方向箭头
 .arrow(@size: 10px, @direction: right, @borderWidth: 2px, @borderColor: @grayC) {
-  display: inline-block;
-  vertical-align: middle;
-  width: @size;
-  height: @size;
+    display: inline-block;
+    vertical-align: middle;
+    width: @size;
+    height: @size;
 
-  & when (@direction = top){
-    border-top: @borderWidth solid @borderColor;
-    border-right: @borderWidth solid @borderColor;
-    transform: rotate(-45deg);
-  }
-  & when (@direction = right){
-    border-top: @borderWidth solid @borderColor;
-    border-right: @borderWidth solid @borderColor;
-    transform: rotate(45deg);
-  }
+    & when (@direction = top) {
+        border-top: @borderWidth solid @borderColor;
+        border-right: @borderWidth solid @borderColor;
+        transform: rotate(-45deg);
+    }
+    & when (@direction = right) {
+        border-top: @borderWidth solid @borderColor;
+        border-right: @borderWidth solid @borderColor;
+        transform: rotate(45deg);
+    }
 
-  & when (@direction = bottom){
-    border-left: @borderWidth solid @borderColor;
-    border-bottom: @borderWidth solid @borderColor;
-    transform: rotate(-45deg);
-  }
+    & when (@direction = bottom) {
+        border-left: @borderWidth solid @borderColor;
+        border-bottom: @borderWidth solid @borderColor;
+        transform: rotate(-45deg);
+    }
 
-  & when (@direction = left){
-    border-left: @borderWidth solid @borderColor;
-    border-bottom: @borderWidth solid @borderColor;
-    transform: rotate(45deg);
-  }
+    & when (@direction = left) {
+        border-left: @borderWidth solid @borderColor;
+        border-bottom: @borderWidth solid @borderColor;
+        transform: rotate(45deg);
+    }
 }
 
-.bg-triangle(@direction, @bgColor){
-  & when (@direction = top){
-    background: @bgColor;
-    background-image: ~'-webkit-linear-gradient(-135deg, @colorBg 25%,transparent 25%), -webkit-linear-gradient(-45deg, @colorBg 25%, transparent 25%)';
-    background-repeat: repeat-x;
-    background-position: 0 0;
-  }
-  & when (@direction = bottom){
-    background: @bgColor;
-    background-image: ~'-webkit-linear-gradient(135deg, @colorBg 25%,transparent 25%), -webkit-linear-gradient(45deg, @colorBg 25%, transparent 25%)';
-    background-repeat: repeat-x;
-    background-position: 0 100%;
-  }
-  & when (@direction = left){
-    background: @bgColor;
-    background-image: ~'-webkit-linear-gradient(-45deg, @colorBg 25%,transparent 25%), -webkit-linear-gradient(45deg, @colorBg 25%, transparent 25%)';
-    background-repeat: repeat-y;
-    background-position: 0 0;
-  }
-  & when (@direction = right){
-    background: @bgColor;
-    background-image: ~'-webkit-linear-gradient(-135deg, @colorBg 25%,transparent 25%), -webkit-linear-gradient(135deg, @colorBg 25%, transparent 25%)';
-    background-repeat: repeat-y;
-    background-position: 100% 0;
-  }
+.bg-triangle(@direction, @bgColor) {
+    & when (@direction = top) {
+        background: @bgColor;
+        background-image: ~'-webkit-linear-gradient(-135deg, @colorBg 25%,transparent 25%), -webkit-linear-gradient(-45deg, @colorBg 25%, transparent 25%)';
+        background-repeat: repeat-x;
+        background-position: 0 0;
+    }
+    & when (@direction = bottom) {
+        background: @bgColor;
+        background-image: ~'-webkit-linear-gradient(135deg, @colorBg 25%,transparent 25%), -webkit-linear-gradient(45deg, @colorBg 25%, transparent 25%)';
+        background-repeat: repeat-x;
+        background-position: 0 100%;
+    }
+    & when (@direction = left) {
+        background: @bgColor;
+        background-image: ~'-webkit-linear-gradient(-45deg, @colorBg 25%,transparent 25%), -webkit-linear-gradient(45deg, @colorBg 25%, transparent 25%)';
+        background-repeat: repeat-y;
+        background-position: 0 0;
+    }
+    & when (@direction = right) {
+        background: @bgColor;
+        background-image: ~'-webkit-linear-gradient(-135deg, @colorBg 25%,transparent 25%), -webkit-linear-gradient(135deg, @colorBg 25%, transparent 25%)';
+        background-repeat: repeat-y;
+        background-position: 100% 0;
+    }
 }
 
 // http://www.css3files.com/font/
@@ -202,49 +201,50 @@
 // 4 The ttf fontfile. Necessary to support (Mobile) Safari and Opera. 
 // 5 The woff fontfile for all modern browsers (best choice).
 .font-face(@fontFaceFamily, @fontFacePath, @weight: normal, @style: normal) {
-  @font-face {
-    font-family: @fontFaceFamily;
-    font-weight: @weight;
-    font-style: @style;
-    src: url("@{fontFacePath}.eot"); // 1
-    src: url("@{fontFacePath}.eot?#iefix") format("eot"), url("@{fontFacePath}.svg#@{fontFaceFamily}") format("svg"), url("@{fontFacePath}.woff") format("woff"), url("@{fontFacePath}.ttf") format("truetype");
-  }
+    @font-face {
+        font-family: @fontFaceFamily;
+        font-weight: @weight;
+        font-style: @style;
+        src: url("@{fontFacePath}.eot"); // 1
+        src: url("@{fontFacePath}.eot?#iefix") format("eot"), url("@{fontFacePath}.svg#@{fontFaceFamily}") format("svg"), url("@{fontFacePath}.woff") format("woff"), url("@{fontFacePath}.ttf") format("truetype");
+    }
 }
 
 // btn-size
 // 按钮大小
 .btn-size(@padding: nth(@btnSize, 1), @height: nth(@btnSize, 2), @radius: @btnRadius, @border: false) {
-  padding: 0 @padding;
-  height: @height;
-  line-height: @height;
-  & when (@radius){
-    border-radius: @btnRadius;
-  }
+    padding: 0 @padding;
+    height: @height;
+    line-height: @height;
+    & when (@radius) {
+        border-radius: @btnRadius;
+    }
 
-  & when(@border){
-    line-height: @height - 2;
-  }
+    & when (@border) {
+        line-height: @height - 2;
+    }
 }
 
-.radius(@px){
-  .px2rem(border-radius, @px);
+.radius(@px) {
+    .px2rem(border-radius, @px);
 }
 
 /*
  * .px2rem(width, 750) => width: 10rem;
 ====================================*/
-.px2rem(@name, @px){
-  @{name}: @px / 75 * 1rem;
+.px2rem(@name, @px) {
+    @{name}: @px / 75 * 1rem;
 }
+
 /*
  * 等比缩放
 */
-.grid-equal(@px){
-  .px2rem(width, @px);
-  .px2rem(height, @px);
+.grid-equal(@px) {
+    .px2rem(width, @px);
+    .px2rem(height, @px);
 }
 
 // opacity
 .opacity(@opacity: 50) {
-  opacity: @opacity / 100;
+    opacity: @opacity / 100;
 }

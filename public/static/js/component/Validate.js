@@ -21,14 +21,12 @@ const DEFAULT_CONFIG = {
     remoteCallback: () => {
     },
     ajaxSubmit: function () {
-        this.ajax({
+        this.getJSON({
             type: this.el.attr('method'),
             url: this.el.attr('action'),
             data: this.util.form.serializeJson(this.el),
-            dataType: 'json',
-            success: this.config.success,
-            error: this.config.error
-        });
+            dataType: 'json'
+        }).then(this.config.success, this.config.error);
     }
 };
 /**
@@ -348,32 +346,24 @@ __METHOD__['remote'] = function (value, el, rule) {
         data = data(el, value);
     }
 
-    let _this = this;
-
-    this.ajax({
+    this.getJSON({
         isNotPop: true,
         url: param.url,
-        dataType: 'json',
-        data: data,
-        success: (json) => {
-            let submitted = _this.formSubmitted;
-            _this.formSubmitted = submitted;
-            _this.successList.push(rule.key);
-            _this.showLog(this.successList, 'success');
-            fn && fn(json);
-            previous.valid = true;
-        },
-        error: (json) => {
-            let msg = json.error || rule.message;
-            __MSG__[rule.key]['remote'] = msg;
-            rule.message = msg;
-            fn && fn(json);
-            self.showLog([rule], 'error');
-            previous.valid = false;
-        },
-        done: function (valid) {
-            self.stopRequest(rule.key, valid);
-        }
+        data: data
+    }).then((res) => {
+        self.successList.push(rule.key);
+        self.showLog(this.successList, 'success');
+        fn && fn(res);
+        previous.valid = true;
+        self.stopRequest(rule.key, true);
+    }, (res) => {
+        let msg = res.error || rule.message;
+        __MSG__[rule.key]['remote'] = msg;
+        rule.message = msg;
+        fn && fn(res);
+        self.showLog([rule], 'error');
+        previous.valid = false;
+        self.stopRequest(rule.key, false);
     });
 
     return 'pending';

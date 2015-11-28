@@ -1,0 +1,200 @@
+.tc-calendar {
+    position: absolute;
+    z-index: 4;
+    padding-top: 5px;
+    top: -5px;
+    left: 4px;
+    width: 210px;
+
+    font-size: 15px;
+
+    background-color: #fff;
+    box-shadow: 0 0 5px #C3CACD;
+    border-radius: 0 0 5px 5px;
+
+    .tc-range-switcher {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 8px;
+        font-size: 14px;
+
+        .tc-switcher {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(195, 202, 205, .5);
+            width: 80px;
+            height: 25px;
+            input{
+                width: 78px;
+                border: 0 none;
+
+                text-align: center;
+                font-size: 14px;
+                background-color: #fff;
+            }
+            i {
+                color: #C3CACD;
+                position: absolute;
+                top: -1px;
+                cursor: pointer;
+                font-size: 12px;
+                height: 100%;
+                width: 20px;
+
+                &:hover:before, &:hover:after {
+                    background-color: #2693D5;
+                }
+                &.tc-disabled {
+                    pointer-events: none;
+                    opacity: 0;
+                }
+                &:before, &:after {
+                    content: "";
+                    position: absolute;
+                    width: 7px;
+                    height: 2px;
+                    background-color: #C3CACD;
+                    border-radius: 1px;
+                    left: 50%;
+                }
+                &.tc-left:before {
+                    top: 10px;
+                    transform: translate(-50%, -50%) rotate(-45deg);
+                }
+                &.tc-left:after {
+                    top: 14px;
+                    transform: translate(-50%, -50%) rotate(45deg);
+                }
+                &.tc-right:before {
+                    top: 10px;
+                    transform: translate(-50%, -50%) rotate(45deg);
+                }
+                &.tc-right:after {
+                    top: 14px;
+                    transform: translate(-50%, -50%) rotate(-45deg);
+                }
+
+                &.tc-right{
+                    right: 0;
+                }
+            }
+
+            .tc-year,
+            .tc-month{
+                display: none;
+                position: absolute;
+                top: 23px;
+                left: -1px;
+                height: 139px;
+                width: 82px;
+                border: 1px solid #C3CACD;
+
+                background: #fff;
+            }
+
+            .tc-selected {
+                background-color: #EBF1F4;
+            }
+
+            .tc-disabled {
+                color: #C3CACD;
+            }
+        }
+        .tc-month-switcher {
+            span {
+                float: left;
+                width: 39px;
+                height: 20px;
+                line-height: 20px;
+                text-align: center;
+                _display: inline;
+
+                cursor: pointer;
+            }
+        }
+        .tc-year-switcher {
+            li {
+                float: left;
+                text-align: center;
+                width: 39px;
+                height: 20px;
+                line-height: 20px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                cursor: pointer;
+            }
+        }
+    }
+    .tc-days-of-week-list {
+        display: flex;
+        background-color: #EBF1F4;
+        font-size: 10px;
+        color: #9BA3A7;
+        padding: 5px 0;
+        border: 1px solid #C3CACD;
+        border-left: none;
+        border-right: none;
+
+        .tc-day-of-week {
+            width: 30px;
+            text-align: center;
+        }
+    }
+    .tc-day-list {
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 15px;
+
+        .tc-day {
+            padding: 5px;
+            text-align: center;
+            width: 30px;
+            cursor: pointer;
+
+            &.tc-hover:not(.tc-current) {
+                background-color: #EBF1F4;
+            }
+            &.tc-hover-before {
+                border-left: 2px solid #2693D5;
+                border-radius: 2px 0 0 2px;
+                padding-left: 3px;
+            }
+            &.tc-hover-after {
+                border-right: 2px solid #2693D5;
+                border-radius: 0 2px 2px 0;
+                padding-right: 3px;
+            }
+        }
+        .tc-selected, .tc-start, .tc-end {
+            background-color: #EBF1F4;
+        }
+        .tc-maybe {
+            background-color: #EBF1F4;
+        }
+        .tc-fade {
+            color: #C3CACD;
+        }
+        .tc-start {
+            border-left: 2px solid #2693D5;
+            border-radius: 2px 0 0 2px;
+            padding-left: 3px;
+        }
+        .tc-end {
+            border-right: 2px solid #2693D5;
+            border-radius: 0 2px 2px 0;
+            padding-right: 3px;
+        }
+        .tc-current {
+            color: #2693D5;
+            background-color: rgba(38,147,213,.2);
+        }
+        .tc-outside {
+            pointer-events: none;
+            cursor: default;
+            color: #C3CACD;
+        }
+    }
+}

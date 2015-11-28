@@ -1,5 +1,24 @@
+/**
+ * @author Charles TCZC
+ *
+ * @example
+ *
+ * <input type="text" id="calendar" />
+ *
+ *
+ *
+ *	new Calendar('#calendar').setConfig({
+ *		format: 'YYYY-MM',
+ *		min: '2015-11-25',
+ *	    max: '2099-06-16 23:59:59',
+ *	    eventType: 'focus',
+ *	    choose: (d) => {this.debug(d)}
+ *	})
+ *
+ */
 import Emitter from '../lib/emitter';
 const DEFAULT = {
+    // 日期的格式
     format: 'YYYY-MM-DD',
     //最小日期
     min: '1900-01-01 00:00:00',
@@ -39,13 +58,14 @@ const DEFAULT = {
             <%= dayTmp %>
         </ul>
     </div>
-    `
+    `,
+    choose: ()=>{}
 };
 
 class Calendar extends Emitter {
     constructor(el) {
         super(el);
-        this.el = el;
+        this.el = $(el);
         this.elValue = /textarea|input/.test(el[0].tagName.toLocaleLowerCase()) ? 'value' : 'innerHTML';
 
         this.now = new Date();
@@ -61,8 +81,6 @@ class Calendar extends Emitter {
         };
 
         this.config = DEFAULT;
-
-        this.debug(this.data, this.nowHMS);
     }
 
     /**
@@ -123,8 +141,8 @@ class Calendar extends Emitter {
             if ($this.hasClass('tc-disabled')) return;
             let _date = $this.data('date');
             let hms = $this.data('hms') || '00:00:00';
-            _date = this.creation(_date, hms);
-            this.setElementVal(_date);
+            this.creation(_date, hms);
+            this.setElementVal(this.valueData);
             this.hide();
             return false;
         });
@@ -443,7 +461,19 @@ class Calendar extends Emitter {
      * @returns {*}
      */
     creation(ymd, hms) {
-        return this.util.dates.parse(ymd, hms, this.config.format);
+        let value = this.valueData = this.util.dates.parse(ymd, hms, this.config.format);
+        this.config.choose.call(this, value);
+    }
+
+    /**
+     * 时间戳转日期
+     * @returns {*}
+     */
+    timestampToDate(timestamp, format) {
+        let d = new Date((timestamp|0) ? function(tamp){
+            return tamp < 86400000 ? (+new Date + tamp*86400000) : tamp;
+        }(parseInt(timestamp)) : +new Date);
+        return this.util.dates.parse(`${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`, `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`, format);
     }
 
     /**

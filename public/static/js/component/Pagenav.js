@@ -7,13 +7,13 @@
  * </div>
  *
  *
- *	new Pagenav(''#pageBox', {
+ *	new Pagenav(''#pageBox').setConfig({
  *		childNode: 'a',
  *		currClass: 'active',
  *		defPage: 2,
  *	    total: 5,
  *	    onAfter: ()=> {this.debug(this.current)}
- *	})
+ *	}).run();
  *
  */
 import Emitter from '../lib/emitter';
@@ -33,6 +33,7 @@ const DEFAULT = {
 
 class Pagenav extends Emitter{
     constructor(el){
+        super(el);
         this.el = $(el);
         this.config = DEFAULT;
         this.el.off('click');
@@ -63,21 +64,21 @@ class Pagenav extends Emitter{
      * @returns {*}
      */
     creatTags(index){
-        index = +index;
+        index = index | 0;
         let config = this.config;
-        let total = config.total;
+        let total = config.total | 0;
         //let tags = config.tags;
         let page = total > 100 ? 2 : 4;
         let len = index + page > total ? total : index + page;
-        let i = index - page < 1 ? 1 : index - page
+        let i = index - page < 1 ? 1 : index - page;
 
         // 只有一页不显示
-        if(total == 1)
+        if(total === 1)
             return this.el.html('');
 
         let list = [];
         // 上一页
-        if(index>1){
+        if(index > 1){
             list.push({
                 cls: 'prev',
                 text: '\u4e0a\u4e00\u9875'
@@ -100,8 +101,8 @@ class Pagenav extends Emitter{
         // 遍历分页
         for(; i<=len; i++){
             let cls = '';
-            if(i == index){
-                cls = config.currClass
+            if(i === index){
+                cls = config.currClass;
             }
             list.push({
                 cls: cls,
@@ -123,7 +124,7 @@ class Pagenav extends Emitter{
         }
 
         // 下一页
-        if(index != total){
+        if(index !== total){
             list.push({
                 cls: 'next',
                 text: '\u4e0b\u4e00\u9875'
@@ -144,7 +145,7 @@ class Pagenav extends Emitter{
      */
     tabPage(evt) {
         const $this = $(evt.target);
-        this.getIndex($this);
+        let index = this.getIndex($this);
         if (isNaN(index) || this.current === index) {
             return index;
         }
@@ -178,4 +179,4 @@ class Pagenav extends Emitter{
 
 }
 
-export default Pagenav
+export default Pagenav;

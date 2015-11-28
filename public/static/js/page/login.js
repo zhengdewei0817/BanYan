@@ -1,8 +1,13 @@
-import Validate from '../component/Validate';
-import Tab from '../component/Tab';
-import '../../less/forms/forms.less';
-//import '../../less/tab/tab.less';
+import '../../less/lib/reset.less';
 
+import '../../less/forms/forms.less';
+import Validate from '../component/Validate';
+//import '../../less/tab/tab.less';
+import Tab from '../component/Tab';
+import '../../less/calendar/calendar.less';
+import Calendar from '../component/Calendar';
+
+//
 const form = $('form');
 new Validate(form).setConfig({
     rules: {
@@ -23,4 +28,9 @@ new Tab('.tc-tab').setConfig({
     active: 1,
     eventType: 'click',
     activeClass: 'active'
+}).run();
+
+new Calendar($('[name="date"]')).setConfig({
+    format: 'YYYY/MM',
+    min: '2015-11-26 23:00:00'
 }).run();

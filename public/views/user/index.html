@@ -7,19 +7,61 @@
         <div class="tab-item">注册</div>
     </div>
     <div class="tc-tab-content">
-        <form action="/login" method="post">
-            <input type="text" name="username" data-validate="username"/>
-            <input type="password" name="password" data-validate="password"/>
-            <input type="submit" id="login" value="登录"/>
+        <form class="tc-form tc-form-aligned" action="/login" method="post">
+            <div class="tc-control-group">
+                <label for="aligned-name">Username</label>
+                <input id="aligned-name" type="text" placeholder="username" name="username" data-validate="username">
+                <div class="tc-form-message-inline">username</div>
+            </div>
+
+            <div class="tc-control-group">
+                <label for="aligned-password">Password</label>
+                <input id="aligned-password" type="password" placeholder="Password" name="password" data-validate="password">
+            </div>
+            <div class="tc-controls">
+                <label for="aligned-cb" class="tc-checkbox">
+                    <input id="aligned-cb" type="checkbox"> I've read the terms and conditions
+                </label>
+                <button type="submit" id="login" class="tc-button tc-button-primary">登录</button>
+            </div>
         </form>
     </div>
     <div class="tc-tab-content">
-        <form action="/reg" method="post">
-            <input type="text" name="username" data-validate="username"/>
-            <input type="password" name="password" data-validate="password"/>
-            <input type="text" name="email" data-validate="email"/>
-            <input type="text" name="mobile" data-validate="mobile"/>
-            <input type="submit" value="注册"/>
+        <form class="tc-form tc-form-aligned" action="/reg" method="post">
+            <fieldset>
+                <div class="tc-control-group">
+                    <label for="aligned-name">Username</label>
+                    <input id="aligned-name" type="text" placeholder="username" name="username" data-validate="username">
+                    <div class="tc-form-message-inline">username</div>
+                </div>
+
+                <div class="tc-control-group">
+                    <label for="aligned-password">Password</label>
+                    <input id="aligned-password" type="password" placeholder="Password" name="password" data-validate="password">
+                </div>
+
+                <div class="tc-control-group">
+                    <label for="aligned-email">Email Address</label>
+                    <input id="aligned-email" type="email" placeholder="Email Address" name="email" data-validate="email">
+                </div>
+
+                <div class="tc-control-group">
+                    <label for="aligned-mobile">Mobile</label>
+                    <input id="aligned-mobile" type="text" placeholder="Mobile" name="mobile" data-validate="mobile">
+                </div>
+
+                <div class="tc-control-group">
+                    <label for="aligned-date">Date</label>
+                    <input id="aligned-date" type="text" placeholder="Date" name="date" data-validate="date" value="2015-10-22 10:11:20">
+                </div>
+
+                <div class="tc-controls">
+                    <label for="aligned-cb" class="tc-checkbox">
+                        <input id="aligned-cb" type="checkbox"> I've read the terms and conditions
+                    </label>
+                    <button type="submit" class="tc-button tc-button-primary">注册</button>
+                </div>
+            </fieldset>
         </form>
     </div>
 </div>

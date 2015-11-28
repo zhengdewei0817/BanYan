@@ -41,13 +41,13 @@ const form = {
     getInps: (form, callback) => {
         let inps = form.find('input');
 
-        $.each(inps, function(){
+        $.each(inps, function () {
             let el = $(this);
             let type = el.attr('type');
             let ignore = el.data('ignore');
             let name = el.attr('name');
             // 忽略不需要提交的input
-            if (type === 'submit' || type === 'button' || ignore || !name){
+            if (type === 'submit' || type === 'button' || ignore || !name) {
                 return;
             }
 
@@ -161,8 +161,88 @@ const str = {
 
     }
 };
+/**
+ * 是否闰月
+ * @param year
+ * @returns {boolean}
+ */
+function isLeapYear(year) {
+    return (0 === year % 400)
+        || ((0 === year % 4) && (0 !== year % 100))
+        || (0 === year);
+}
+
+const dates = {
+    /**
+     * 获取当前月在当前年的总天数
+     * @param month
+     * @param year
+     * @returns {number}
+     */
+    daysInMonth: (month, year) => {
+        return [31, (isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
+    },
+    /**
+     * 对Date的扩展，将 Date 转化为指定格式的String
+     * @param fmt
+     * @returns {*}
+     */
+    format: (dateObj, fmt = 'yyyy-MM-dd hh:mm:ss') => {
+        if (!dateObj) {
+            throw new Error('Date format need a Date Object');
+        }
+        let o = {
+            'M+': dateObj.getMonth() + 1, //月份
+            'd+': dateObj.getDate(), //日
+            'h+': dateObj.getHours(), //小时
+            'm+': dateObj.getMinutes(), //分
+            's+': dateObj.getSeconds(), //秒
+            'q+': Math.floor((dateObj.getMonth() + 3) / 3), //季度
+            'S': dateObj.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (dateObj.getFullYear() + '').substr(4 - RegExp.$1.length));
+        for (let k in o) {
+            if (new RegExp('(' + k + ')').test(fmt)) {
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)));
+            }
+        }
+        return fmt;
+    },
+    /**
+     * 时间戳转换为日期
+     * @param timestamp
+     * @returns {Date}
+     */
+    timestampToDate: (timestamp = +new Date()) => {
+        return new Date(parseInt(timestamp));
+    },
+    /**
+     * 日期补全
+     * @param num
+     * @returns {*}
+     */
+    digit: (num = 0) => {
+        return num < 10 ? '0' + (num | 0) : num;
+    },
+    /**
+     * 转换日期格式
+     * @param ymd
+     * @param hms
+     * @param format
+     * @returns {*}
+     */
+    parse: (ymd, hms, format) => {
+        ymd = ymd + ' ' + hms;
+        ymd = ymd.split(/\W/);
+        return format.replace(/YYYY|MM|DD|hh|mm|ss/g, function(){
+            ymd.index = ++ymd.index|0;
+            return dates.digit(ymd[ymd.index]);
+        });
+    }
+};
 
 export default {
     string: str,
-    form: form
+    form,
+    dates
 };

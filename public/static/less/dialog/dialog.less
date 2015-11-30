@@ -1,101 +1,207 @@
-.tc-dialog{
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-left: -256px;
-  margin-top: -200px;
-  padding: 0;
-  min-width: 340px;
-  text-align: center;
-  border-radius: 5px;
-  background-color: #fff;
-  background-clip: content-box;
-  -webkit-background-clip: content-box;
-  animation-fill-mode:both;
-  animation-duration: .3s;
-  overflow: hidden;
-  z-index: 10001;
-  &-overlay{
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10000;
-    background-color:#000;
-    opacity: .3;
-  }
-  &-content{
-    position: relative;
-    width: 100%;
-    height: 100px;
-    padding: 22px 60px 22px 75px;
-    -ms-word-break: break-all;
-    word-break: break-all;
-    text-align: center;
-    font-size: 14px;
-    i{
-      background-position: -93px 0;
-    }
-  }
-  &-setwin{
+.tc-dialog {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 0;
-    line-height: inherit;
-    a{
-      display: inline-block;
-      position: absolute;
-      right: -18px;
-      top: -15px;
-      width: 30px;
-      height: 30px;
-      margin-left: 0;
-      background-position: -220px -44px;
-      vertical-align: top;
-      background: url(/public/static/img/common/icon_b.png) no-repeat;
-    }
-  }
-  &-btn{
+    top: 50%;
+    left: 50%;
+    padding: 0;
+    min-width: 340px;
     text-align: center;
-    margin: 0;
-    padding: 0 30px 20px;
-    pointer-events: auto;
-    a{
-      width: 100px;
-      height: 30px;
-      line-height: 30px;
-      margin: 0 8px;
-      color: #fff;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-      background-color: #f04447;
-      &:hover{
-        opacity: .9;
-        text-decoration: none;
-      }
-      &:active{
-        opacity: .7;
-      }
+    border-radius: 5px;
+    border: 1px solid #999;
+    background-color: #fff;
+    background-clip: content-box;
+    -webkit-background-clip: content-box;
+    animation-fill-mode: both;
+    animation-duration: .3s;
+    overflow: hidden;
+    z-index: 10001;
+    font-size: 14px;
+    &-show {
+        display: block;
     }
-  }
-  &-btn0{
-    background-color: #f04447;
-  }
-  &-btn1{
-    background-color: #ccc;
-  }
+    &-hide {
+        display: none;
+    }
+    &-overlay {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 10000;
+        background-color: #000;
+        opacity: .3;
+    }
+    &-head {
+        margin: 0;
+        height: 30px;
+        line-height: 30px;
+        border-bottom: 1px solid #e5e5e5;
+        span {
+            float: left;
+            font-weight: bold;
+        }
+    }
+    &-content {
+        position: relative;
+        width: 100%;
+        min-height:15px;
+        -ms-word-break: break-all;
+        word-break: break-all;
+        text-align: center;
+        font-size: 14px;
+
+        i {
+            background-position: -93px 0;
+        }
+    }
+    &-setwin {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 0;
+        line-height: inherit;
+        a {
+            display: inline-block;
+            position: absolute;
+            right: -10px;
+            top: -12px;
+            width: 30px;
+            height: 30px;
+            font-size: large;
+            color: #bbb;
+            cursor: pointer;
+        }
+    }
+    &-btn {
+        text-align: center;
+        margin: 0;
+        padding: 0 30px 20px;
+        pointer-events: auto;
+        a {
+            display: inline-block;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            &:hover {
+                opacity: .9;
+                text-decoration: none;
+            }
+            &:active {
+                opacity: .7;
+            }
+        }
+    }
+    &-btn0 {
+        background-color: #f04447;
+    }
+    &-btn1 {
+        background-color: #ccc;
+    }
+    &-btn2 {
+        background-color: #129FEA;
+    }
+    &-btn3 {
+        background-color: #7fdbff;
+    }
+    &-alert {
+        .tc-dialog-content {
+            height: 80px;
+            line-height: 75px;
+        }
+    }
+    &-tips{
+        font-size: 12px;
+        min-width: 200px;
+        width: 200px;
+        padding: 10px;
+        overflow: visible;
+        border: 1px solid #ccc;
+        background: #ffff00;
+        color: red;
+        position: absolute;
+        .tips-out-1{
+            position: absolute;
+            top:31px;
+            left: 40px;
+            color: #ccc;
+            font-size: 20px;
+        }
+        .tips-in-1{
+            position: absolute;
+            top:30px;
+            left: 40px;
+            color: #ffff00;
+            font-size: 20px;
+        }
+        .tips-out-2{
+            position: absolute;
+            top: 3px;
+            left: -16px;
+            color: #ccc;
+            font-size: 20px;
+        }
+        .tips-in-2{
+            position: absolute;
+            top: 3px;
+            left: -16px;
+            color: #ffff00;
+            font-size: 20px;
+        }
+        .tips-out-3{
+            position: absolute;
+            top: -16px;
+            left: 31px;
+            color: #ccc;
+            font-size: 20px;
+        }
+        .tips-in-3{
+            position: absolute;
+            top: -16px;
+            left: 31px;
+            color: #ffff00;
+            font-size: 20px;
+        }
+        .tips-out-4{
+            position: absolute;
+            top: -5px;
+            right: -16px;
+            color: #ccc;
+            font-size: 20px;
+        }
+        .tips-in-4{
+            position: absolute;
+            top: -5px;
+            right: -16px;
+            color: #ffff00;
+            font-size: 20px;
+        }
+    }
+    &-loading{
+        .img{
+            margin: 0 auto;
+            width: 32px;
+            height: 32px;
+            background: url('/public/static/image/loading.gif');
+        }
+    }
 }
-.ui-dialog{
-  &-show{
-    display: block;
-  }
-  &-hide{
-    display: none;
-  }
+
+.dialog-html-main {
+    width: 600px;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    .btn {
+        width: 100px;
+        height: 30px;
+        background-color: #999999;
+    }
 }

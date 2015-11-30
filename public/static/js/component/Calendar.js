@@ -13,7 +13,7 @@
  *	    max: '2099-06-16 23:59:59',
  *	    eventType: 'focus',
  *	    choose: (d) => {this.debug(d)}
- *	})
+ *	}).run();
  *
  */
 import Emitter from '../lib/emitter';

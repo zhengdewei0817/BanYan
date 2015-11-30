@@ -1,0 +1,68 @@
+.tc-slider {
+    &-wrap {
+        position: relative;
+
+        li {
+            float: left;
+        }
+    }
+
+    &-carousel{
+
+    }
+
+    //  Vertical sliders don't float left
+    &-vertical {
+        > ul {
+            height: 100%;
+        }
+
+        li {
+            float: none;
+            width: 100%;
+        }
+    }
+
+    //  Fading needs everything to appear on top of
+    //  each other
+    &-fade {
+        position: relative;
+
+        .tc-slider-wrap li {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            z-index: 8;
+
+            &.tc-slider-active {
+                z-index: 10;
+            }
+        }
+    }
+
+    li {
+        list-style: none;
+
+        /* Reset any weird spacing */
+        margin: 0;
+        padding: 0;
+
+        border: none;
+    }
+
+    &-arrow {
+        position: absolute;
+        left: 20px;
+        z-index: 2;
+
+        cursor: pointer;
+
+        &.next {
+            left: auto;
+            right: 20px;
+        }
+    }
+}
+
+@import "slider-nav";

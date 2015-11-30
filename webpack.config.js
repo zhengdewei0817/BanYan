@@ -30,6 +30,7 @@ if (process.env.production) {
 module.exports = {
     entry: {
         'login': 'js/page/login',
+        'index': 'js/page/index',
         'dialog': 'js/page/dialog',
     },
     output: {

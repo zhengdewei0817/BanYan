@@ -6,6 +6,7 @@ import Validate from '../component/Validate';
 import Tab from '../component/Tab';
 import '../../less/calendar/calendar.less';
 import Calendar from '../component/Calendar';
+import Pagenav from '../component/Pagenav';
 
 //
 const form = $('form');
@@ -33,4 +34,14 @@ new Tab('.tc-tab').setConfig({
 new Calendar($('[name="date"]')).setConfig({
     format: 'YYYY/MM',
     min: '2015-11-26 23:00:00'
+}).run();
+
+new Pagenav('#pageBox').setConfig({
+    childNode: 'a',
+    currClass: 'active',
+    defPage: 2,
+    total: 5,
+    onAfter: ()=> {
+        this.debug(this.current);
+    }
 }).run();

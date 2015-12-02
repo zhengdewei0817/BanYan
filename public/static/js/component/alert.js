@@ -18,10 +18,14 @@ function alert(message) {
         type: 'alert',
         title: `提示信息`,
         content: message,
+        btns: [{
+            id: 'ok', value: '确定', callback: () => {}
+        }],
         showHead: true,
         showBtn: true,
         overlay: true,
         skin: `tc-dialog-alert`
+        //superposition: true
     }).init();
 }
 

@@ -33,7 +33,7 @@ import Emitter from '../lib/emitter';
 const DEFAULT_CONFIG = {
     type: 'dialog',
     // 标题
-    title: 'dialog',
+    title: '',
     // 内容 innerHtml
     content: '',
     // 按钮 默认只有一个close
@@ -137,8 +137,8 @@ class Dialog extends Emitter {
             if($overlay){
                 return this;
             }
-            this.overlay = $overlay = $('<div class="tc-dialog-overlay"></div>');
-            this.overlay.insertBefore(this.dialog);
+            $overlay = $('<div class="tc-dialog-overlay"></div>');
+            $overlay.insertBefore(this.dialog);
         }
         return this;
     }
@@ -168,7 +168,10 @@ class Dialog extends Emitter {
     //显示
     show() {
         if (!this.isOpen) {
-            this.dialog.removeClass(`hide`);
+            this.dialog.addClass(`${this.config.skin}`).removeClass(`hide`);
+            if ($overlay) {
+                $overlay.removeClass(`hide`);
+            }
             if (this.config.autoClose && this.config.autoClose > 0) {
                 this.autoClose();
             }
@@ -196,9 +199,9 @@ class Dialog extends Emitter {
      */
     close() {
         if (this.isOpen) {
-            this.dialog.addClass(`hide`);
-            if (this.overlay) {
-                this.overlay.addClass(`hide`);
+            this.dialog.addClass(`hide`).removeClass(`${this.config.skin}`);
+            if ($overlay) {
+                $overlay.addClass(`hide`);
             }
             this.isOpen = false;
         }
@@ -220,10 +223,9 @@ class Dialog extends Emitter {
      * @returns {Dialog}
      */
     removeOverlay() {
-        if (this.overlay) {
+        if ($overlay) {
+            $overlay.remove();
             $overlay = null;
-            this.overlay.remove();
-            this.overlay = null;
         }
         return this;
     }
@@ -251,13 +253,13 @@ class Dialog extends Emitter {
                 let tw = this.config.tipsTarget.width();
                 let th = this.config.tipsTarget.height();
                 //tips的width、height
-                let tipsw = this.dialog.width();
-                let tipsh = parseInt(this.dialog.height() / 2);
+                let tipsw = this.dialog.width() - this.dialog.find('.tc-dialog-content').width();
+                let tipsh = this.dialog.height();
                 switch (this.config.tipsPosition) {
                     case 1:
                         //top
                         rleft = `${parseInt(tl + 20)}px`;
-                        rtop = `${parseInt(tt - tipsh + 5)}px`;
+                        rtop = `${parseInt(tt - tipsh + 10)}px`;
                         break;
                     case 2:
                         //right
@@ -271,7 +273,7 @@ class Dialog extends Emitter {
                         break;
                     case 4:
                         //left
-                        rleft = `${parseInt(tl - tipsw - 25)}px`;
+                        rleft = `${parseInt(tl - tipsw + 10)}px`;
                         rtop = `${parseInt(tt - 10)}px`;
                         break;
                 }

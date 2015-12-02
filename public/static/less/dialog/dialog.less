@@ -114,16 +114,25 @@
         background: #ffff00;
         color: red;
         position: absolute;
+        .tc-dialog-head {
+            height: 10px;
+            border-bottom: 0;
+        }
+        .tc-dialog-content {
+            height: 25px;
+            line-height: 25px;
+            min-width: 200px;
+        }
         .tips-out-1{
             position: absolute;
-            top:31px;
+            bottom: -16px;
             left: 40px;
             color: #ccc;
             font-size: 20px;
         }
         .tips-in-1{
             position: absolute;
-            top:30px;
+            bottom: -16px;
             left: 40px;
             color: #ffff00;
             font-size: 20px;
@@ -180,7 +189,7 @@
         }
     }
 }
-
+.hide{display: none;}
 .dialog-html-main {
     width: 600px;
     margin: 0 auto;

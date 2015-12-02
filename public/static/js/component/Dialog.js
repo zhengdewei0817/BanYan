@@ -53,7 +53,7 @@ const DEFAULT_CONFIG = {
     skin: 'default',
     // 定位弹层位置所参照的目标对象
     tipsTarget: null,
-    // 位置 用1,2,3,4分别代表目标位置上右下左侧
+    // 位置用1,2,3,4分别代表目标位置上右下左侧
     tipsPosition: 0,
     //自动关闭时间
     autoClose: 0,

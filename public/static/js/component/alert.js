@@ -25,7 +25,6 @@ function alert(message) {
         showBtn: true,
         overlay: true,
         skin: `tc-dialog-alert`
-        //superposition: true
     }).init();
 }
 

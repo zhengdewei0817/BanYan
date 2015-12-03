@@ -48,28 +48,14 @@ _.assign(app.locals, ENV_CONFIG.locals || {}, helper);
 app.locals.isProduction = (env_name === 'production');
 
 // 设置cookie
-app.use(cookieParser('vw'));
+app.use(cookieParser('Banyan'));
 // session 存到mysql中
-var mysqlConfig = ENV_CONFIG.mysql;
+var dbConfig = ENV_CONFIG.db;
 // 是否设置sessionStore
-if(ENV_CONFIG.sessionStore){
+if(dbConfig.store){
     app.use(session({
-        secret: 'vw',
-        store: new SessionStore({
-            host: mysqlConfig.host,
-            port: mysqlConfig.port,
-            user: mysqlConfig.username,
-            password: mysqlConfig.password,
-            database: mysqlConfig.database,
-            schema: {
-                tableName: 'node_session',
-                columnNames: {
-                    session_id: 'session_id',
-                    expires: 'expires',
-                    data: 'data'
-                }
-            }
-        }),
+        secret: 'Banyan',
+        store: dbConfig.store,
         resave: true,
         saveUninitialized: true
     }));

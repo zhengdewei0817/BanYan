@@ -63,7 +63,6 @@ ejs._with = false;
  */
 
 function compile(file, options, cb) {
-console.log('compile', file);
   // Express used to set options.locals for us, but now we do it ourselves
   // (EJS does some __proto__ magic to expose these funcs/values in the template)
   if (!options.locals) {
@@ -90,8 +89,6 @@ console.log('compile', file);
 }
 
 function renderFile(file, options, fn){
-console.log('renderFile', file);
-    
   // Express used to set options.locals for us, but now we do it ourselves
   // (EJS does some __proto__ magic to expose these funcs/values in the template)
   if (!options.locals) {

@@ -5,7 +5,7 @@ var logger = require('../libs/logger');
 
 var sqlLog = logger.log('SQL');
 
-var mysqlConfig = ENV_CONFIG.mysql;
+var mysqlConfig = ENV_CONFIG.db.mysql;
 var sequelize = new Sequelize(mysqlConfig.database, mysqlConfig.username, mysqlConfig.password, {
     host: mysqlConfig.host,
     port: mysqlConfig.port,

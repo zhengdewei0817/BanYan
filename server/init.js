@@ -2,7 +2,6 @@ var bodyParser = require('body-parser');
 var express = require('express');
 var path = require('path');
 var _ = require('lodash');
-var template = require('./libs/template');
 var helper = require('./libs/helper');
 
 var session = require('express-session');
@@ -34,13 +33,13 @@ app.use(bodyParser.urlencoded({extended: false, limit: '50mb'}));
 
 // views
 app.set('views', path.join(__dirname, '../public/views/'));
-app.set('view engine', 'html');
-app.engine('html', template);
+app.set('view engine', 'jade');
 
 // 生产环境启用缓存
 if(env_name === 'production'){
     app.set('view cache', true);
 }
+
 
 // 模板中一些公共的变量
 _.assign(app.locals, ENV_CONFIG.locals || {}, helper);

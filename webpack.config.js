@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
@@ -20,21 +21,38 @@ function getEntry() {
     return files;
 }
 
+function chunkList(){
+    this.plugin('done', function(stats) {
+        // 获取文件列表
+        var filemaps = stats.toJson();
+        var filemapsStr = JSON.stringify(filemaps.assetsByChunkName);
+        // 生成编译文件的maps
+        fs.writeFileSync(path.join(__dirname, 'filemaps.json'), filemapsStr);
+    });
+}
+
 var plugins = [
+    chunkList,
     commonsPlugin
 ];
 
 var outputFilename = '[name].js';
-if (process.env.production) {
+if (!process.env.production) {
     plugins.push(
+        new webpack.optimize.CommonsChunkPlugin('common', 'common.[chunkhash:6].js'),
         new ExtractTextPlugin('[name].[contenthash:6].css', {
             allChunks: true
         }),
-        new webpack.optimize.UglifyJsPlugin({})
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        })
     );
     outputFilename = '[name].[chunkhash:6].js';
 } else {
     plugins.push(
+        new webpack.optimize.CommonsChunkPlugin('common'),
         new ExtractTextPlugin('[name].css', {
             allChunks: true
         })

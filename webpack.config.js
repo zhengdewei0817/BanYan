@@ -1,10 +1,24 @@
 const path = require('path');
+const glob = require('glob');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
 
 const node_modules = path.resolve(__dirname, 'node_modules');
 const appRoot = path.join(__dirname, 'public/static/');
+/**
+ * 自动查找目录生成entry
+ */
+function getEntry() {
+    var jsDir = path.join(appRoot, 'js/page');
+    var files = {};
+    glob.sync(jsDir + '/**/*.js').forEach((file, index) => {
+        var name = file.replace(jsDir, '').substring(1);
+        var matchs = name.match(/(.+)\.js$/);
+        files[matchs[1]] = file;
+    });
+    return files;
+}
 
 var plugins = [
     commonsPlugin
@@ -28,11 +42,7 @@ if (process.env.production) {
 }
 
 module.exports = {
-    entry: {
-        'login': 'js/page/login',
-        'index': 'js/page/index',
-        'dialog': 'js/page/dialog',
-    },
+    entry: getEntry(),
     output: {
         path: path.join(__dirname, '/build'),
         filename: outputFilename

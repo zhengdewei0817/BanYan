@@ -1,0 +1,50 @@
+extends ../layout/layout
+
+block styles
+    link(rel='stylesheet' href='/login.css')
+
+block content
+    div.login
+        div.tc-tab
+            div.tab-item 登录
+            div.tab-item 注册
+        div.tc-tab-content
+            form.tc-form.tc-form-aligned(action='/login', method='post')
+                div.tc-control-group
+                    label Username
+                    input(type='text', placeholder='username', name='username', data-validate='username')
+                    div.tc-form-message username
+                div.tc-control-group
+                    label Password
+                    input(type='password', placeholder='Password', name='password', data-validate='password')
+                div.tc-controls
+                    label.tc-checkbox
+                        input(type='checkbox')
+                    button#login.tc-button.tc-button-primary 登录
+
+        div.tc-tab-content
+            form.tc-form.tc-form-aligned(action='/reg', method='post')
+                div.tc-control-group
+                    label Username
+                    input(type='text', placeholder='username', name='username', data-validate='username')
+                    div.tc-form-message username
+                div.tc-control-group
+                    label Password
+                    input(type='password', placeholder='Password', name='password', data-validate='password')
+                div.tc-control-group
+                    label email
+                    input(type='text', placeholder='email', name='email', data-validate='email')
+                div.tc-control-group
+                    label Mobile
+                    input(type='text', placeholder='Mobile', name='Mobile', data-validate='Mobile')
+                div.tc-control-group
+                    label Date
+                    input(type='text', placeholder='Date', name='date', data-validate='date', value='2015-10-22')
+                div.tc-controls
+                    label.tc-checkbox
+                        input(type='checkbox')
+                        | I've read the terms and conditions
+                    button#login.tc-button.tc-button-primary(type='submit') 注册
+
+block scripts
+    script(src='/login.js')

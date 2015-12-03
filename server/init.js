@@ -89,7 +89,7 @@ app.use(logger.use());
 app.use((req, res, next) => {
     var err = new Error('Not Found');
     err.status = 404;
-    res.render('public/404.html');
+    res.render('public/404.jade');
 });
 
 // 500
@@ -100,7 +100,7 @@ app.use((error, req, res) => {
         message: error.message
     };
     if (!res.headersSent) {
-        res.render('public/500.html', err);
+        res.render('public/500.jade', err);
     }
 });
 

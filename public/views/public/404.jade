@@ -1,7 +1,8 @@
 doctype html
 html(lang='en')
     head
-        title= title
+        title.
+            Page not found!
         meta(charset='UTF-8')
         meta(name='viewport', content='width=device-width,initial-scale=1.0,user-scalable=no')
         meta(content='yes', name='apple-mobile-web-app-capable')
@@ -9,11 +10,8 @@ html(lang='en')
         meta(content='telephone=no', name='format-detection')
         meta(name='apple-mobile-web-app-capable', content='yes')
         link(rel='stylesheet', href='/common.css')
-        block styles
     body
-        block content
-        script(src='http://s0.qhimg.com/lib/jquery/1102.js')
-        script(src='/common.js')
-        block scripts
-            if isProduction
-                | 这里的内容只有生产环境可见
+        h2.
+            400
+        p.
+            Page not found!

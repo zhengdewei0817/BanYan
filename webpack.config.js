@@ -3,7 +3,6 @@ const path = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
 
 const node_modules = path.resolve(__dirname, 'node_modules');
 const appRoot = path.join(__dirname, 'public/static/');
@@ -32,14 +31,13 @@ function chunkList(){
 }
 
 var plugins = [
-    chunkList,
-    commonsPlugin
+    chunkList
 ];
 
 var outputFilename = '[name].js';
 if (process.env.production) {
     plugins.push(
-        new webpack.optimize.CommonsChunkPlugin('common', 'common.[chunkhash:6].js'),
+        new webpack.optimize.CommonsChunkPlugin('common.[chunkhash:6].js'),
         new ExtractTextPlugin('[name].[contenthash:6].css', {
             allChunks: true
         }),
@@ -52,7 +50,7 @@ if (process.env.production) {
     outputFilename = '[name].[chunkhash:6].js';
 } else {
     plugins.push(
-        new webpack.optimize.CommonsChunkPlugin('common'),
+        new webpack.optimize.CommonsChunkPlugin('common.js'),
         new ExtractTextPlugin('[name].css', {
             allChunks: true
         })

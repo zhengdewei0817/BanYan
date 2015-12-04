@@ -1,0 +1,33 @@
+extends ../layout/layout
+
+block styles
+   link(rel='stylesheet' href='/dialog.css')
+
+block content
+   div.dialog-html-main
+      fieldset
+         legend Dialog组件
+         input(type='button',class='btn') Dialog
+      fieldset
+         legend Alert
+         input(type='button',class='btn') Alert
+      fieldset
+         legend Confirm
+         input(type='button',class='btn') Confirm
+      fieldset
+         legend Tips
+         input(type='button',class='btn') Tips-Top
+         input(type='button',class='btn') Tips=Right
+         input(type='button',class='btn') Tips-Bottom
+         input(type='button',class='btn') Tips-Left
+      fieldset
+         legend Loading
+         input(type='button',class='btn') Loading
+      fieldset
+         legend Img
+         img.img
+
+block script
+   script(src='/dialog.js')
+
+

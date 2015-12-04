@@ -92,7 +92,7 @@ module.exports = {
                     'less?sourceMap'
                 )
             },
-            { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'}
+            { test: /\.(png|jpe?g|gif)$/, loader: 'url-loader?limit=8192'}
         ]
     },
     plugins: plugins

@@ -5,7 +5,8 @@ _site/
 node_modules/
 logs/
 commands/
-.idea//config/ngx/production.*.conf
+.idea/
+/config/ngx/production.*.conf
 
 .DS_Store
 npm-debug.log

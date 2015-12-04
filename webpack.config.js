@@ -37,7 +37,7 @@ var plugins = [
 ];
 
 var outputFilename = '[name].js';
-if (!process.env.production) {
+if (process.env.production) {
     plugins.push(
         new webpack.optimize.CommonsChunkPlugin('common', 'common.[chunkhash:6].js'),
         new ExtractTextPlugin('[name].[contenthash:6].css', {

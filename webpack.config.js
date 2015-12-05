@@ -19,24 +19,28 @@ function getEntry() {
     });
     return files;
 }
-
+/**
+ * 生成map，在上生产前用来做替换用
+ */
 function chunkList(){
     this.plugin('done', function(stats) {
         // 获取文件列表
         var filemaps = stats.toJson();
         var filemapsStr = JSON.stringify(filemaps.assetsByChunkName);
         // 生成编译文件的maps
-        fs.writeFileSync(path.join(__dirname, 'filemaps.json'), filemapsStr);
+        fs.writeFileSync(path.join(__dirname, 'build', 'assets.json'), filemapsStr);
     });
 }
 
-var plugins = [
-    chunkList
-];
+var plugins = [];
+var output = {
+    path: path.join(__dirname, '/build'),
+    filename: '[name].js'
+};
 
-var outputFilename = '[name].js';
-if (process.env.production) {
+if (process.env.NODE_ENV === 'production') {
     plugins.push(
+        chunkList,
         new webpack.optimize.CommonsChunkPlugin('common.[chunkhash:6].js'),
         new ExtractTextPlugin('[name].[contenthash:6].css', {
             allChunks: true
@@ -47,7 +51,7 @@ if (process.env.production) {
             }
         })
     );
-    outputFilename = '[name].[chunkhash:6].js';
+    output.filename = '[name].[chunkhash:6].js';
 } else {
     plugins.push(
         new webpack.optimize.CommonsChunkPlugin('common.js'),
@@ -59,10 +63,7 @@ if (process.env.production) {
 
 module.exports = {
     entry: getEntry(),
-    output: {
-        path: path.join(__dirname, '/build'),
-        filename: outputFilename
-    },
+    output: output,
     resolve: {
         root: appRoot,
         alias: {

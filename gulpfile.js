@@ -1,3 +1,13 @@
-// todo: gulp自动生成css sprite，并且自动生成md5后的时间戳
-// gulp-css-spriter
-// gulp-md5-plus
+var gulp = require('gulp');
+var fs = require('fs');
+var sequence = require('run-sequence');
+var assets = require('./build/assets.json');
+
+gulp.task('html', function(cb){
+    console.log(assets);
+    // TODO: 替换jade内容
+});
+
+gulp.task('build', function(cb){
+    sequence('html', cb)
+});

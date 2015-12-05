@@ -1,0 +1,21 @@
+{
+  "apps" : [
+    {
+      "name"      : "Banyan",
+      "cwd"       : "/home/charles/project/Banyan",
+      "script"    : "run.js",
+      "exec_mode" : "cluster",
+      "node_args" : "--harmony",
+      "watch"     : ["server"],
+      "env"       : {
+        "NODE_ENV": "development.lq"
+      },
+      "log_date_format" : "YYYY-MM-DD HH:mm Z",
+      "error_file"      : "/home/charles/project/Banyan/logs/error.log",
+      "out_file"        :   "/home/charles/project/Banyan/logs/out.log",
+      "pid_file"        :   "/home/charles/project/Banyan/logs/pid.log",
+      "max_memory_restart":   "400M",
+      "instances":   "max"
+    }
+  ]
+}

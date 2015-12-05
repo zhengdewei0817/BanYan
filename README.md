@@ -1,4 +1,5 @@
 # Banyan
+> 请安装`Node` `pm2` `webpack`
 
 ## 结构
 
@@ -35,14 +36,71 @@ package.json --- 服务依赖配置
 pm2.config.json --- 使用pm2启动应用的简单配置
 ```
 
+## 修改配置
+在`config/env`复制`development.js`,修改为`development.yourname.js`，并修改端口,如：
+
+```
+// 文件名： development.lq.js，占用端口5000
+module.exports = {
+    port: 5000,
+    logfilename: './logs/test.log',
+    db: {
+        store: null,
+        mysql: {
+            host: 'localhost',
+            port: 3306,
+            username: 'test',
+            password: 'test',
+            database: 'test',
+            locals: {
+                IMAGE_BASE_DIR_URL: '/static'
+            }
+        }
+    }
+}
+```
+
+在`config/pm2`复制`liuqing.json`,修改为`yourname.json`，并修改为自己对于的目录,如：
+
+```
+{
+  "apps" : [
+    {
+      "name"      : "front",
+      // 这里为项目的绝对路径
+      "cwd"       : "/home/liuqing-ira/project/front",
+      "script"    : "run.js",
+      "exec_mode" : "cluster",
+      "node_args" : "--harmony",
+      "watch"     : ["server"],
+      "env"       : {
+      // 修改为env下创建的配置文件
+        "NODE_ENV": "development.lq"
+      },
+      "log_date_format" : "YYYY-MM-DD HH:mm Z",
+      // pm2 记录的进程日志
+      "error_file"      : "/home/liuqing-ira/project/front/logs/error.log",
+      "out_file"        :   "/home/liuqing-ira/project/front/logs/out.log",
+      "pid_file"        :   "/home/liuqing-ira/project/front/logs/pid.log",
+      "max_memory_restart":   "400M",
+      "instances":   "max"
+    }
+  ]
+}
+```
+
 ## 运行
-
-session 存入mysql，所以请先配置mysql
+首次运行
+```
+pm2 start config/pm2/yourname.json
+```
+重启服务
 
 ```
-npm start
+pm2 reload config/pm2/yourname.json
 ```
 
-## 日志
-* 增加了lodash模块
-* 路由生成规则为routers下的目录和文件的结构，如： routers/user/index.js => /user/
+
+## 注意
++ session 存入redis
++ 静态资源使用es6，使用webpack编译
